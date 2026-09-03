@@ -448,7 +448,7 @@
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:0.5rem">
             <span style="font-size:1.4rem">🗳️</span>
             <h2 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin:0">
-                ¿Te llamaron desde este número? Votá en 1 clic:
+                ¿Te llamaron desde este número? Vota en 1 clic:
             </h2>
         </div>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.75rem">
@@ -516,7 +516,7 @@
     <div class="card" id="formulario-reporte">
         <h2 class="card-title">📝 Dejar un Reporte sobre el {{ $formatted }}</h2>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.25rem">
-            ¿Qué te dijeron cuando atendiste? ¿De qué empresa afirmaban ser? Tu testimonio protege a otros usuarios en Chile.
+            ¿Qué te dijeron cuando contestaste? ¿De qué empresa afirmaban ser? Tu testimonio protege a otros usuarios en Chile.
         </p>
 
         <form action="{{ route('phone.comment', $phone->number) }}" method="POST">
@@ -534,15 +534,15 @@
                 <select id="reason" name="reason" required>
                     <option value="Estafa / Phishing">🚨 Intento de Estafa / Robo de Datos / Phishing</option>
                     <option value="Telemarketing">📢 Telemarketing / Promoción de Telefonía o Seguros</option>
-                    <option value="Llamada Silenciosa">🔇 Llamada Silenciosa / Robocall (Cortan al atender)</option>
-                    <option value="Cobro de Deudas">💳 Cobro de Deuda / Estudio Jurídico</option>
+                    <option value="Llamada Silenciosa">🔇 Llamada Silenciosa / Robocall (Cortan al contestar)</option>
+                    <option value="Cobro de Deudas">💳 Cobro de Deudas / Empresa de Cobranza</option>
                     <option value="Otro">ℹ️ Otro Motivo</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="content">Detalle de la llamada (*):</label>
-                <textarea id="content" name="content" rows="4" required minlength="6" placeholder="Contá qué pasó cuando te llamaron..."></textarea>
+                <textarea id="content" name="content" rows="4" required minlength="6" placeholder="Cuenta qué pasó cuando te llamaron..."></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width:100%">
@@ -602,7 +602,7 @@
         <img src="{{ asset('images/victor-alonso.webp') }}" alt="Víctor Alonso" class="eeat-avatar">
         <div class="eeat-info">
             <h4>Revisado y auditado por Víctor Alonso</h4>
-            <p>Especialista en Desarrollo Web y SEO. Creador de QuiénLlama, comprometido con la transparencia en telecomunicaciones y la protección comunitaria frente a fraudes y spam telefónico en Chile, España y Argentina.</p>
+            <p>Especialista en Desarrollo Web y SEO. Creador de QuiénLlama, comprometido con la transparencia en telecomunicaciones y la protección comunitaria frente a fraudes y spam telefónico en Chile, España, México y Argentina.</p>
             <div class="eeat-links">
                 <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">🌍 victor-alonso.es</a> ·
                 <a href="https://www.linkedin.com/in/vialonso/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a> ·

@@ -98,7 +98,7 @@
     <div class="about-card">
         <h2>🎯 Mi Misión</h2>
         <p>
-            Estoy comprometido con la transparencia y la lucha contra las llamadas no deseadas, el acoso telefónico y los intentos de estafa a cualquier hora del día. Por eso creé el ecosistema <strong>QuiénLlama</strong>: para ofrecer una herramienta comunitaria, rápida y gratuita donde identificar, bloquear y reportar números de telemarketing insistente o fraudes en Chile, España y Argentina.
+            Estoy comprometido con la transparencia y la lucha contra las llamadas no deseadas, el acoso telefónico y los intentos de estafa a cualquier hora del día. Por eso creé el ecosistema <strong>QuiénLlama</strong>: para ofrecer una herramienta comunitaria, rápida y gratuita donde identificar, bloquear y reportar números de telemarketing insistente o fraudes en Chile, España, México y Argentina.
         </p>
 
         <h2>🛡️ Experiencia y Compromiso Técnico (E-E-A-T)</h2>

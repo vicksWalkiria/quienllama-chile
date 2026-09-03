@@ -1,14 +1,14 @@
-# 📞 QuiénLlama Argentina (`ar.quienllama.com.es`)
+# 📞 QuiénLlama Chile (`cl.quienllama.com.es`)
 
-Plataforma comunitaria independiente de referencia en la República Argentina para la identificación de llamadas desconocidas, prevención de fraudes / estafas bancarias, descarga masiva de archivos VCF de bloqueo nativo y marco regulatorio del Registro Nacional No Llame (Ley 26.951).
+Plataforma comunitaria independiente de referencia en la República de Chile para la identificación de llamadas desconocidas, prevención de fraudes / estafas telefónicas, descarga masiva de archivos VCF de bloqueo nativo y marco regulatorio de la plataforma «No Molestar» del SERNAC (Ley N° 19.496).
 
 ---
 
 ## 🚀 Características Principales
 
-* **Normalizador ENACOM Oficial**: Algoritmo que procesa formatos nacionales e internacionales (`+54 9`, `0`, `15`, longitudes fijas de 10 dígitos) y vincula más de 70 características interurbanas argentinas (AMBA 11, Rosario 341, Córdoba 351, La Plata 221, etc.).
+* **Normalizador SUBTEL Oficial**: Algoritmo que procesa formatos nacionales e internacionales (`+56 9`, `+56 2`, etc., longitudes fijas de 9 dígitos) y vincula todos los prefijos de Chile (Santiago 2, Valparaíso 32, Concepción 41, Antofagasta 55, VoIP 44, etc.).
 * **Sistema de Bloqueo Masivo VCF**: Descarga de libretas de contactos agrupadas en un único registro virtual (`Top 50`, `Top 100`, `Top 500` y por teléfono individual) para bloqueo a nivel de módem (0% batería, 0% RAM, 100% privacidad).
-* **Directorio SEO de Características**: Páginas optimizadas para cada código de área con instrucciones de marcación fija y celular nacional e internacional.
+* **Directorio SEO de Prefijos y Códigos de Área**: Páginas optimizadas para cada código regional con instrucciones de marcación fija y celular nacional e internacional.
 * **Seguridad y Anti-Abuso**:
   * Control de acceso a paneles administrativos restringido por IP fija.
   * Protección contra bots en telemetría y endpoints de votación.

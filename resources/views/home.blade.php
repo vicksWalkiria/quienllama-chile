@@ -454,11 +454,11 @@
     <!-- Hero Search Section -->
     <section class="search-section">
         <h1>¿A quién pertenece este número de teléfono?</h1>
-        <p>Introduce cualquier número fijo o celular y descubre gratis quién te llama en Chile y si es spam o estafa.</p>
+        <p>Ingresa cualquier número fijo o celular y descubre gratis quién te llama en Chile y si es spam o estafa.</p>
 
         <div class="search-form-wrapper">
             <form action="{{ route('search') }}" method="GET" class="search-form">
-                <input type="tel" name="q" placeholder="Introduce el número (ej: 9 8765 4321)" autofocus required>
+                <input type="tel" name="q" placeholder="Ingresa el número (ej: 9 8765 4321)" autofocus required>
                 <button type="submit" class="btn-search">Buscar Gratis</button>
             </form>
         </div>
@@ -558,7 +558,7 @@
             </div>
             <div style="background:rgba(255, 255, 255, 0.05); border:1px solid rgba(255, 255, 255, 0.1); border-radius:var(--radius); padding:1rem">
                 <strong style="color:white; display:block; font-size:0.95rem; margin-bottom:0.3rem">💬 Clonación de WhatsApp</strong>
-                <p style="color:#cbd5e1; font-size:0.84rem; margin:0; line-height:1.5">Piden el código de 6 dígitos con excusas de paquetes de encomiendas o turnos médicos. Nunca lo compartas.</p>
+                <p style="color:#cbd5e1; font-size:0.84rem; margin:0; line-height:1.5">Piden el código de 6 dígitos con excusas de entregas de encomiendas o confirmación de horas médicas. Nunca lo compartas.</p>
             </div>
             <div style="background:rgba(255, 255, 255, 0.05); border:1px solid rgba(255, 255, 255, 0.1); border-radius:var(--radius); padding:1rem">
                 <strong style="color:white; display:block; font-size:0.95rem; margin-bottom:0.3rem">🔇 Llamadas Fantasma / Wangiri</strong>
@@ -620,7 +620,7 @@
         <img src="{{ asset('images/victor-alonso.webp') }}" alt="Víctor Alonso - Desarrollador y Especialista SEO" class="eeat-avatar">
         <div class="eeat-info">
             <h4>Revisado y verificado por Víctor Alonso</h4>
-            <p>Especialista en Desarrollo Web y SEO. Creador de QuiénLlama, comprometido con la transparencia en telecomunicaciones y la protección comunitaria frente a fraudes y spam telefónico en Chile, España y Argentina.</p>
+            <p>Especialista en Desarrollo Web y SEO. Creador de QuiénLlama, comprometido con la transparencia en telecomunicaciones y la protección comunitaria frente a fraudes y spam telefónico en Chile, España, México y Argentina.</p>
             <div class="eeat-links">
                 <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">🌍 victor-alonso.es</a> ·
                 <a href="https://www.linkedin.com/in/vialonso/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a> ·

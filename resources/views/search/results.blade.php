@@ -44,7 +44,7 @@
                     No encontramos números registrados para esta consulta
                 </h2>
                 <p style="color:var(--text-muted); font-size:0.95rem; max-width:500px; margin:0 auto 1.5rem">
-                    Recordá que los números en Chile tienen 9 dígitos (ej: <code>9 8765 4321</code> para celulares o <code>2 2234 5678</code> para fijos de Santiago).
+                    Recuerda que los números en Chile tienen 9 dígitos (ej: <code>9 8765 4321</code> para celulares o <code>2 2234 5678</code> para fijos de Santiago).
                 </p>
                 <a href="{{ route('home') }}" class="btn btn-primary">
                     Volver al Inicio
