@@ -108,16 +108,6 @@ class PhoneController extends Controller
             'ip_hash' => hash('sha256', $request->ip() . 'salt2026'),
         ]);
 
-        // Enviar alerta por email al administrador
-        \App\Services\NotificationService::sendSpamReportAlert($phone, $comment, $request);
-
-        // Notificar a IndexNow en tiempo real para acelerar indexación en buscadores
-        try {
-            \App\Services\IndexNowService::submitUrls([route('phone.show', $phone->number)]);
-        } catch (\Throwable $e) {
-            // Non-blocking
-        }
-
         // Aumentar spam_score según la gravedad del motivo
         $increment = match ($request->reason) {
             'Estafa / Phishing' => 15,
@@ -129,6 +119,16 @@ class PhoneController extends Controller
         $phone->spam_score = min(100, $phone->spam_score + $increment);
         $phone->touch();
         $phone->save();
+
+        // Enviar alerta por email al administrador con la puntuación actualizada
+        \App\Services\NotificationService::sendSpamReportAlert($phone, $comment, $request);
+
+        // Notificar a IndexNow en tiempo real para acelerar indexación en buscadores
+        try {
+            \App\Services\IndexNowService::submitUrls([route('phone.show', $phone->number)]);
+        } catch (\Throwable $e) {
+            // Non-blocking
+        }
 
         AnalyticsEvent::create([
             'event_type' => 'report_spam_phone',
