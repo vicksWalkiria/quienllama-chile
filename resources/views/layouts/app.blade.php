@@ -765,6 +765,7 @@
                     <li><a href="{{ route('legal.cookies') }}">Política de Cookies</a></li>
                     <li><a href="{{ url('/llms.txt') }}">Documentación AI (llms.txt)</a></li>
                     <li><a href="https://quienllama.com.es/" target="_blank" rel="noopener" style="color:var(--primary); font-weight:700">🇪🇸 QuiénLlama España</a></li>
+                    <li><a href="https://mx.quienllama.com.es/" target="_blank" rel="noopener" style="color:var(--primary); font-weight:700">🇲🇽 QuiénLlama México</a></li>
                     <li><a href="https://ar.quienllama.com.es/" target="_blank" rel="noopener" style="color:var(--primary); font-weight:700">🇦🇷 QuiénLlama Argentina</a></li>
                 </ul>
             </div>
@@ -773,7 +774,7 @@
         <div class="footer-bottom">
             <div class="footer-bottom-inner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; max-width:var(--content-width); margin:0 auto;">
                 <div>
-                    &copy; {{ date('Y') }} <strong>QuiénLlama Chile</strong> · Red QuiénLlama: <a href="https://quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇪🇸 España</a> | <a href="https://ar.quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇦🇷 Argentina</a> · Proyecto comunitario desarrollado por <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">Víctor Alonso</a>
+                    &copy; {{ date('Y') }} <strong>QuiénLlama Chile</strong> · Red QuiénLlama: <a href="https://quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇪🇸 España</a> | <a href="https://mx.quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇲🇽 México</a> | <a href="https://ar.quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇦🇷 Argentina</a> · Proyecto comunitario desarrollado por <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">Víctor Alonso</a>
                 </div>
                 <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
                     <span>100% Gratuito</span> · <span>0% Batería / RAM</span> · <span>100% Privacidad</span>
