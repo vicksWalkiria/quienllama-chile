@@ -20,7 +20,7 @@ class IndexNowPingCommand extends Command
             route('home'),
             route('area-codes.index'),
             route('vcf.index'),
-            route('legal.no-llame'),
+            route('legal.no-molestar'),
             route('legal.about'),
             route('contact.index'),
         ];

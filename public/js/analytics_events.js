@@ -1,5 +1,5 @@
 /**
- * QuiénLlama Argentina - GA4 Event & Conversion Tracking Suite (TopCita / QuiénLlama Hybrid Pattern)
+ * QuiénLlama Chile - GA4 Event & Conversion Tracking Suite
  * Medición de objetivos clave, descargas VCF antispam, denuncias comunitarias, clics E-E-A-T y búsquedas.
  * Soporta medición híbrida (Google Analytics 4 + SQLite sendBeacon backend).
  */
@@ -75,10 +75,10 @@
                 return;
             }
 
-            // 3. Clics hacia Sedes Oficiales del Estado (Registro No Llame, AAIP, Mi Argentina, ENACOM)
-            var officialLink = e.target.closest('a[href*="nollame.aaip.gob.ar"], a[href*="argentina.gob.ar"], a[href*="enacom.gob.ar"], a[href*="consumidor.gob.ar"]');
+            // 3. Clics hacia Sedes Oficiales de Chile (SERNAC No Molestar, SUBTEL, ClaveÚnica)
+            var officialLink = e.target.closest('a[href*="sernac.cl"], a[href*="subtel.gob.cl"], a[href*="claveunica.gob.cl"]');
             if (officialLink) {
-                window.trackGoal('official_nollame_click', {
+                window.trackGoal('official_sernac_click', {
                     destination_url: officialLink.getAttribute('href') || '',
                     link_text: officialLink.textContent.trim(),
                     event_label: officialLink.getAttribute('href') || '',
@@ -99,15 +99,15 @@
                 return;
             }
 
-            // 5. Clics en Características Telefónicas
-            var areaCard = e.target.closest('a[href*="/caracteristica/"]');
+            // 5. Clics en Prefijos Telefónicos Chilenos
+            var areaCard = e.target.closest('a[href*="/prefijo/"]');
             if (areaCard) {
                 var areaHref = areaCard.getAttribute('href') || '';
-                var codeMatch = areaHref.match(/\/caracteristica\/(\d+)/);
+                var codeMatch = areaHref.match(/\/prefijo\/(\d+)/);
                 var areaCode = codeMatch ? codeMatch[1] : '';
-                window.trackGoal('area_code_click', {
-                    area_code: areaCode,
-                    event_label: '0' + areaCode,
+                window.trackGoal('prefix_code_click', {
+                    prefix_code: areaCode,
+                    event_label: areaCode,
                     page_location: window.location.pathname
                 });
                 return;

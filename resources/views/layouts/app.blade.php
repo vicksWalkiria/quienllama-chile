@@ -38,6 +38,11 @@
     <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('images/icon-512x512.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/icon-192x192.png') }}">
 
+    <!-- Search Engine Verification (Google & Bing) -->
+    <meta name="google-site-verification" content="8d29c2442fb48502">
+    <meta name="google-site-verification" content="a4c4eb519aa0b080">
+    <meta name="msvalidate.01" content="4FB9070697157F7FC512923BE9B02FC5">
+
     <!-- LLMs.txt AI Discovery -->
     <link rel="alternate" type="text/plain" href="{{ url('/llms.txt') }}" title="Documentación para LLMs e IA">
 
