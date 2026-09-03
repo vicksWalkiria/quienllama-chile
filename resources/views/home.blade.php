@@ -1,0 +1,519 @@
+@extends('layouts.app')
+
+@section('title', 'Quién Llama - Saber a quién pertenece un número de teléfono en Chile gratis')
+@section('meta_description', 'Introduce un número de teléfono o celular y descubrí gratis a quién pertenece en Chile. Identificá llamadas de spam, telemarketing, estafas y lee denuncias de la comunidad.')
+
+@section('styles')
+<style>
+    /* Search Section (Estilo Clásico QuiénLlama) */
+    .search-section {
+        text-align: center;
+        padding: 2.5rem 1rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .search-section h1 {
+        font-size: 2.3rem;
+        font-weight: 900;
+        letter-spacing: -0.7px;
+        color: var(--text-main);
+        line-height: 1.2;
+        margin-bottom: 0.75rem;
+    }
+
+    .search-section p {
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 1.75rem;
+    }
+
+    .search-form-wrapper {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        background: #ffffff;
+        border: 2px solid var(--primary);
+        border-radius: 9999px;
+        padding: 0.35rem 0.45rem 0.35rem 1.4rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 51, 160, 0.2);
+        transition: box-shadow 0.2s;
+    }
+
+    .search-form:focus-within {
+        box-shadow: 0 12px 30px -4px rgba(0, 51, 160, 0.3);
+    }
+
+    .search-form input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-main);
+        background: transparent;
+    }
+
+    .search-form .btn-search {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.75rem;
+        border-radius: 9999px;
+        font-weight: 800;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        white-space: nowrap;
+    }
+
+    .search-form .btn-search:hover {
+        background: var(--primary-hover);
+        transform: scale(1.02);
+    }
+
+    /* Quick Action Pills */
+    .quick-actions {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .qa-pill-danger {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: #fee2e2;
+        color: #b91c1c;
+        border: 1.5px solid #fca5a5;
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 0.45rem 1.1rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .qa-pill-danger:hover {
+        background: #fecdd3;
+        transform: translateY(-1px);
+    }
+
+    .qa-pill-blue {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: #eff6ff;
+        color: var(--primary);
+        border: 1.5px solid #bfdbfe;
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 0.45rem 1.1rem;
+        border-radius: 9999px;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .qa-pill-blue:hover {
+        background: #dbeafe;
+    }
+
+    /* Dark VCF Banner */
+    .vcf-promo-banner {
+        max-width: 650px;
+        margin: 2rem auto 0;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
+        border: 1px solid #334155;
+        border-radius: 14px;
+        padding: 1rem 1.35rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        flex-wrap: wrap;
+    }
+
+    .vcf-promo-left {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        text-align: left;
+    }
+
+    .vcf-promo-icon {
+        font-size: 1.8rem;
+    }
+
+    .vcf-promo-text strong {
+        color: #ffffff;
+        font-size: 0.95rem;
+        display: block;
+    }
+
+    .vcf-promo-text span {
+        color: #cbd5e1;
+        font-size: 0.82rem;
+    }
+
+    .vcf-promo-btn {
+        background: var(--secondary);
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1.1rem;
+        border-radius: 8px;
+        font-size: 0.84rem;
+        font-weight: 700;
+        white-space: nowrap;
+        transition: background 0.2s;
+        box-shadow: 0 2px 8px rgba(213, 43, 30, 0.3);
+    }
+
+    .vcf-promo-btn:hover {
+        background: #b91c1c;
+    }
+
+    /* Phone Pills Grid */
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0;
+    }
+
+    .pills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-bottom: 2rem;
+    }
+
+    .phone-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+        font-family: inherit;
+    }
+
+    .phone-pill:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+
+    .pill-danger {
+        background: #fee2e2;
+        color: #b91c1c;
+        border: 1.5px solid #fca5a5;
+    }
+
+    .pill-neutral {
+        background: var(--surface);
+        color: var(--text-main);
+        border: 1.5px solid var(--border);
+    }
+
+    .pill-neutral:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    .pill-badge {
+        font-size: 0.78rem;
+        opacity: 0.85;
+    }
+
+    /* EEAT Author Box */
+    .eeat-author-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .eeat-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--primary);
+        flex-shrink: 0;
+    }
+
+    .eeat-info h4 {
+        margin: 0 0 0.35rem 0;
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--text-main);
+    }
+
+    .eeat-info p {
+        margin: 0 0 0.75rem 0;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .eeat-links {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .eeat-links a {
+        color: var(--primary);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .eeat-links a:hover {
+        text-decoration: underline;
+    }
+
+    /* FAQs */
+    .faqs {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .faqs h3 {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 1.25rem;
+    }
+
+    .faqs details {
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 0;
+    }
+
+    .faqs details:last-child {
+        border-bottom: none;
+    }
+
+    .faqs summary {
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text-main);
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+    }
+
+    .faqs summary:hover {
+        color: var(--primary);
+    }
+
+    .faq-content {
+        margin-top: 0.65rem;
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+        .search-section h1 {
+            font-size: 1.8rem;
+        }
+        .search-form {
+            flex-direction: column;
+            border-radius: var(--radius);
+            padding: 0.6rem;
+            gap: 0.5rem;
+        }
+        .search-form .btn-search {
+            width: 100%;
+            border-radius: var(--radius);
+        }
+    }
+</style>
+@endsection
+
+@section('content')
+
+    <!-- Hero Search Section -->
+    <section class="search-section">
+        <h1>¿A quién pertenece este número de teléfono?</h1>
+        <p>Introduce cualquier número fijo o celular y descubrí gratis quién te llama en Chile y si es spam o estafa.</p>
+
+        <div class="search-form-wrapper">
+            <form action="{{ route('search') }}" method="GET" class="search-form">
+                <input type="tel" name="q" placeholder="Introduce el número (ej: 9 8765 4321, 2 2234 5678...)" autofocus required>
+                <button type="submit" class="btn-search">Buscar Gratis</button>
+            </form>
+        </div>
+
+        <div class="quick-actions">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">¿Querés reportar o consultar una llamada?</span>
+            <a href="#notificar-telefono-sospechoso" class="qa-pill-danger">
+                <span>🚨</span> Notificar teléfono sospechoso <span>⬇</span>
+            </a>
+            <a href="{{ route('legal.no-molestar') }}" class="qa-pill-blue">
+                <span>⚖️</span> SERNAC «No Molestar» ➔
+            </a>
+        </div>
+
+        <!-- Banner Destacado: Bloqueador VCF -->
+        <div class="vcf-promo-banner">
+            <div class="vcf-promo-left">
+                <span class="vcf-promo-icon">🚫</span>
+                <div class="vcf-promo-text">
+                    <strong>¿Cansado de recibir llamadas SPAM en tu celular?</strong>
+                    <span>Bloqueá cientos de números en tu móvil en 1 clic con nuestra lista VCF gratis para Chile.</span>
+                </div>
+            </div>
+            <a href="{{ route('vcf.index') }}" class="vcf-promo-btn">
+                Ver Lista VCF ➔
+            </a>
+        </div>
+    </section>
+
+    <!-- Pills Grid: Números Investigados -->
+    <section style="margin-bottom: 2.5rem;">
+        <div class="section-header">
+            <h2>
+                <span>📞</span> Teléfonos y Celulares en el Directorio Chileno
+            </h2>
+            <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">
+                {{ number_format($totalPhones) }} números registrados
+            </span>
+        </div>
+
+        <div class="pills-grid">
+            @foreach($pillsPhones as $p)
+                <a href="{{ route('phone.show', $p->number) }}" class="phone-pill {{ $p->spam_score > 0 ? 'pill-danger' : 'pill-neutral' }}">
+                    <span class="pill-number">{{ $p->formatted() }}</span>
+                    <span class="pill-badge">
+                        {{ $p->area_code ? '📍 +' . $p->area_code : '🇨🇱' }}
+                    </span>
+                </a>
+            @endforeach
+        </div>
+    </section>
+
+    <!-- Guía de Estafas Frecuentes en Chile -->
+    <section style="background:linear-gradient(135deg, #1e293b, #0f172a); color:white; border-radius:var(--radius-lg); padding:2rem; margin-bottom:3rem; box-shadow:var(--shadow-hover)">
+        <h2 style="font-size:1.45rem; font-weight:800; margin-bottom:0.6rem">
+            🛡️ Radar de Estafas Telefónicas en Chile
+        </h2>
+        <p style="color:#94a3b8; font-size:0.92rem; line-height:1.6; margin-bottom:1.5rem">
+            Recomendaciones prácticas para no caer en engaños comunes originados desde líneas virtuales VoIP o números móviles:
+        </p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:1rem">
+            <div style="background:rgba(255, 255, 255, 0.05); border:1px solid rgba(255, 255, 255, 0.1); border-radius:var(--radius); padding:1rem">
+                <strong style="color:white; display:block; font-size:0.95rem; margin-bottom:0.3rem">📦 Falso BancoEstado / Falabella</strong>
+                <p style="color:#cbd5e1; font-size:0.84rem; margin:0; line-height:1.5">Alertan por supuestos bloqueos de CuentaRUT o compras no reconocidas mediante SMS con enlaces maliciosos.</p>
+            </div>
+            <div style="background:rgba(255, 255, 255, 0.05); border:1px solid rgba(255, 255, 255, 0.1); border-radius:var(--radius); padding:1rem">
+                <strong style="color:white; display:block; font-size:0.95rem; margin-bottom:0.3rem">💬 Clonación de WhatsApp</strong>
+                <p style="color:#cbd5e1; font-size:0.84rem; margin:0; line-height:1.5">Piden el código de 6 dígitos con excusas de paquetes de encomiendas o turnos médicos. Nunca lo compartas.</p>
+            </div>
+            <div style="background:rgba(255, 255, 255, 0.05); border:1px solid rgba(255, 255, 255, 0.1); border-radius:var(--radius); padding:1rem">
+                <strong style="color:white; display:block; font-size:0.95rem; margin-bottom:0.3rem">🔇 Llamadas Fantasma / Wangiri</strong>
+                <p style="color:#cbd5e1; font-size:0.84rem; margin:0; line-height:1.5">Marcadores automáticos que cortan al contestar para chequear si tu celular está activo y derivarlo a telemarketing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs Schema.org -->
+    <section class="faqs" itemscope itemtype="https://schema.org/FAQPage">
+        <h3>Preguntas Frecuentes</h3>
+        
+        <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <summary itemprop="name">¿Qué debo hacer si recibo llamadas de spam constantemente en mi celular?</summary>
+            <div class="faq-content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">Si recibís llamadas recurrentes en Chile, lo más recomendable es bloquear el número desde los ajustes de tu celular o descargar nuestra lista VCF gratis. Además, podés buscar el número en nuestra plataforma para comprobar si otros usuarios lo reportaron y dejar tu denuncia.</p>
+            </div>
+        </details>
+        
+        <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <summary itemprop="name">¿Cómo inscribo mi teléfono en «No Molestar» del SERNAC?</summary>
+            <div class="faq-content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">Podés inscribir tus líneas fijas y celulares de forma gratuita en el portal oficial del SERNAC (sernac.cl) utilizando tu ClaveÚnica. Las empresas notificadas disponen de 1 día hábil para dejar de contactarte bajo apercibimiento de multas de hasta 300 UTM.</p>
+            </div>
+        </details>
+
+        <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <summary itemprop="name">¿Cómo recopilan la información de los números en QuiénLlama?</summary>
+            <div class="faq-content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <p itemprop="text">Nuestra plataforma se basa en la colaboración ciudadana. Los usuarios reportan los motivos de las llamadas recibidas y comparten sus experiencias para advertir a la comunidad sobre números sospechosos o insistentes.</p>
+            </div>
+        </details>
+    </section>
+
+    <!-- Report CTA Form Section -->
+    <section class="report-cta-section" id="notificar-telefono-sospechoso" style="scroll-margin-top: 5rem;">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+            <span style="font-size: 2rem;">🚨</span>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.35rem;">
+                Notificar un Teléfono Sospechoso
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted);">
+                Ingresá el número que te llamó para buscar su ficha o crearla automáticamente y advertir a otros usuarios en Chile.
+            </p>
+        </div>
+
+        <div style="max-width: 500px; margin: 0 auto;">
+            <form action="{{ route('search') }}" method="GET" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <input type="tel" name="q" placeholder="Número sospechoso (ej: 9 8765 4321)" required style="flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 1rem; min-width: 200px;">
+                <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.25rem;">
+                    Identificar y Reportar
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- EEAT Author Card (Víctor Alonso) -->
+    <div class="eeat-author-card">
+        <img src="{{ asset('images/victor-alonso.webp') }}" alt="Víctor Alonso - Desarrollador y Especialista SEO" class="eeat-avatar">
+        <div class="eeat-info">
+            <h4>Revisado y verificado por Víctor Alonso</h4>
+            <p>Especialista en Desarrollo Web y SEO. Creador de QuiénLlama, comprometido con la transparencia en telecomunicaciones y la protección comunitaria frente a fraudes y spam telefónico en Chile, España y Argentina.</p>
+            <div class="eeat-links">
+                <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">🌍 victor-alonso.es</a> ·
+                <a href="https://www.linkedin.com/in/vialonso/" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a> ·
+                <a href="{{ route('legal.about') }}">ℹ️ Sobre el autor</a>
+            </div>
+        </div>
+    </div>
+
+@endsection
