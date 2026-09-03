@@ -31,8 +31,9 @@
 
     .search-form-wrapper {
         position: relative;
-        max-width: 600px;
+        max-width: 680px;
         margin: 0 auto;
+        width: 100%;
     }
 
     .search-form {
@@ -54,7 +55,7 @@
         border: none;
         outline: none;
         width: 100%;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 600;
         color: var(--text-main);
         background: transparent;
@@ -129,59 +130,72 @@
         background: #dbeafe;
     }
 
-    /* Dark VCF Banner */
+    /* Dark VCF Banner (Centrado) */
     .vcf-promo-banner {
-        max-width: 650px;
+        max-width: 680px;
         margin: 2rem auto 0;
         background: linear-gradient(135deg, #1e293b, #0f172a);
         border: 1px solid #334155;
         border-radius: 14px;
-        padding: 1rem 1.35rem;
+        padding: 1.25rem 1.5rem;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
+        justify-content: center;
+        text-align: center;
+        gap: 0.85rem;
         box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-        flex-wrap: wrap;
     }
 
     .vcf-promo-left {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 0.85rem;
-        text-align: left;
+        gap: 0.5rem;
+        text-align: center;
     }
 
     .vcf-promo-icon {
         font-size: 1.8rem;
+        margin-bottom: 0.1rem;
     }
 
     .vcf-promo-text strong {
         color: #ffffff;
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         display: block;
+        margin-bottom: 0.35rem;
     }
 
     .vcf-promo-text span {
         color: #cbd5e1;
-        font-size: 0.82rem;
+        font-size: 0.88rem;
+        line-height: 1.45;
+        max-width: 520px;
+        display: block;
+        margin: 0 auto;
     }
 
     .vcf-promo-btn {
         background: var(--secondary);
         color: white;
         text-decoration: none;
-        padding: 0.5rem 1.1rem;
-        border-radius: 8px;
-        font-size: 0.84rem;
+        padding: 0.6rem 1.5rem;
+        border-radius: 9999px;
+        font-size: 0.88rem;
         font-weight: 700;
         white-space: nowrap;
-        transition: background 0.2s;
-        box-shadow: 0 2px 8px rgba(213, 43, 30, 0.3);
+        transition: all 0.2s;
+        box-shadow: 0 3px 10px rgba(213, 43, 30, 0.35);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
     }
 
     .vcf-promo-btn:hover {
         background: #b91c1c;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 14px rgba(213, 43, 30, 0.45);
     }
 
     /* Phone Pills Grid */
@@ -444,7 +458,7 @@
 
         <div class="search-form-wrapper">
             <form action="{{ route('search') }}" method="GET" class="search-form">
-                <input type="tel" name="q" placeholder="Introduce el número (ej: 9 8765 4321, 2 2234 5678...)" autofocus required>
+                <input type="tel" name="q" placeholder="Introduce el número (ej: 9 8765 4321)" autofocus required>
                 <button type="submit" class="btn-search">Buscar Gratis</button>
             </form>
         </div>
