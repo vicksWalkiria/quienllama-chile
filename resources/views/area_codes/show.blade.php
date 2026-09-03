@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Prefijo ' . $clean . ' Chile: ¿De dónde es el código de área ' . $clean . '?')
-@section('meta_description', '¿De qué ciudad o región es el prefijo ' . $clean . ' en Chile? Conocé la localidad y región correspondiente al código ' . $clean . ' (' . $info['city'] . '), cómo marcar según SUBTEL y números denunciados.')
+@section('meta_description', '¿De qué ciudad o región es el prefijo ' . $clean . ' en Chile? Conoce la localidad y región correspondiente al código ' . $clean . ' (' . $info['city'] . '), cómo marcar según SUBTEL y números denunciados.')
 
 @section('styles')
 <style>
@@ -260,7 +260,7 @@
             🔎 ¿Recibiste una llamada con el prefijo {{ $clean }}?
         </h3>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem">
-            Ingresá el número completo para consultar si otros usuarios lo denunciaron por telemarketing o estafas en Chile:
+            Ingresa el número completo para consultar si otros usuarios lo denunciaron por telemarketing o estafas en Chile:
         </p>
 
         <form action="{{ route('search') }}" method="GET" style="display:flex; gap:0.5rem; flex-wrap:wrap">
@@ -301,7 +301,7 @@
                 📍 Otros prefijos de la {{ $info['region'] }}
             </h3>
             <p style="font-size:0.88rem; color:var(--text-muted)">
-                Explorá los códigos de área de localidades cercanas en la misma región:
+                Explora los códigos de área de localidades cercanas en la misma región:
             </p>
 
             <div class="sister-codes-grid">

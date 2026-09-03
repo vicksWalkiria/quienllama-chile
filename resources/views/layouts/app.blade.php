@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Quién Llama Chile - ¿De quién es este número? Identificador Gratis')</title>
-    <meta name="description" content="@yield('meta_description', 'Descubrí gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam, estafas telefónicas y telemarketing.')">
+    <meta name="description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam, estafas telefónicas y telemarketing.')">
     <meta name="theme-color" content="#0033a0">
     <meta name="apple-mobile-web-app-title" content="QuiénLlama Chile">
     <link rel="canonical" href="{{ url()->current() }}">
@@ -14,23 +14,23 @@
     <meta property="og:locale" content="es_CL">
     <meta property="og:site_name" content="QuiénLlama Chile">
     <meta property="og:title" content="@yield('title', 'Quién Llama Chile - ¿De quién es este número?')">
-    <meta property="og:description" content="@yield('meta_description', 'Descubrí gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam y estafas.')">
+    <meta property="og:description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam y estafas.')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ asset('images/og-image.png') }}">
     <meta property="og:image:secure_url" content="{{ asset('images/og-image.png') }}">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1024">
     <meta property="og:image:height" content="535">
-    <meta property="og:image:alt" content="QuiénLlama Chile - ¡Acabá con el SPAM!">
+    <meta property="og:image:alt" content="QuiénLlama Chile - ¡Acaba con el SPAM!">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@vicksWalkiria">
     <meta name="twitter:creator" content="@vicksWalkiria">
     <meta name="twitter:title" content="@yield('title', 'Quién Llama Chile - ¿De quién es este número?')">
-    <meta name="twitter:description" content="@yield('meta_description', 'Descubrí gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam y estafas.')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam y estafas.')">
     <meta name="twitter:image" content="{{ asset('images/og-image.png') }}">
-    <meta name="twitter:image:alt" content="QuiénLlama Chile - ¡Acabá con el SPAM!">
+    <meta name="twitter:image:alt" content="QuiénLlama Chile - ¡Acaba con el SPAM!">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
@@ -574,20 +574,65 @@
         }
 
         @media (max-width: 640px) {
+            .site-header {
+                padding: 0.6rem 0.85rem;
+            }
+
             .header-inner {
-                flex-wrap: wrap;
-                gap: 0.75rem;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .menu-toggle {
+                justify-self: end;
             }
 
             .header-search-wrapper {
-                order: 3;
+                grid-column: 1 / -1;
                 width: 100%;
                 max-width: 100%;
                 min-width: 100%;
+                margin-top: 0.2rem;
+            }
+
+            .container {
+                padding: 1.25rem 0.85rem;
             }
 
             .footer-grid {
                 grid-template-columns: 1fr;
+                text-align: center;
+                gap: 1.75rem;
+            }
+
+            .footer-col {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-col ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-bottom {
+                text-align: center;
+            }
+
+            .footer-bottom-inner {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                gap: 0.75rem;
             }
         }
     </style>
@@ -679,7 +724,7 @@
                     <span class="tld-badge" style="background:#eff6ff; color:var(--primary); border:1px solid #bfdbfe">🇨🇱 Chile</span>
                 </div>
                 <p style="color:var(--text-muted); font-size:0.88rem; line-height:1.6; max-width:340px; margin-bottom:1rem">
-                    El directorio antispam colaborativo de Chile. Identificá llamadas desconocidas, bloqueá números comerciales molestos gratis y conocé tus derechos ante el portal No Molestar del SERNAC.
+                    El directorio antispam colaborativo de Chile. Identifica llamadas desconocidas, bloquea números comerciales molestos gratis y conoce tus derechos ante el portal No Molestar del SERNAC.
                 </p>
                 <div class="footer-badge" style="background:#eff6ff; color:var(--primary);">
                     <span>🇨🇱 Cobertura Nacional SUBTEL 2026</span>
@@ -726,11 +771,13 @@
         </div>
 
         <div class="footer-bottom">
-            <div>
-                &copy; {{ date('Y') }} <strong>QuiénLlama Chile</strong> · Red QuiénLlama: <a href="https://quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇪🇸 España</a> | <a href="https://ar.quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇦🇷 Argentina</a> · Proyecto comunitario desarrollado por <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">Víctor Alonso</a>
-            </div>
-            <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
-                <span>100% Gratuito</span> · <span>0% Batería / RAM</span> · <span>100% Privacidad</span>
+            <div class="footer-bottom-inner" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; max-width:var(--content-width); margin:0 auto;">
+                <div>
+                    &copy; {{ date('Y') }} <strong>QuiénLlama Chile</strong> · Red QuiénLlama: <a href="https://quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇪🇸 España</a> | <a href="https://ar.quienllama.com.es/" target="_blank" rel="noopener" style="font-weight:700; color:inherit; text-decoration:underline">🇦🇷 Argentina</a> · Proyecto comunitario desarrollado por <a href="https://victor-alonso.es" target="_blank" rel="noopener noreferrer">Víctor Alonso</a>
+                </div>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;">
+                    <span>100% Gratuito</span> · <span>0% Batería / RAM</span> · <span>100% Privacidad</span>
+                </div>
             </div>
         </div>
     </footer>

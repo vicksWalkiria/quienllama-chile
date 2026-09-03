@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Quién Llama - Saber a quién pertenece un número de teléfono en Chile gratis')
-@section('meta_description', 'Introduce un número de teléfono o celular y descubrí gratis a quién pertenece en Chile. Identificá llamadas de spam, telemarketing, estafas y lee denuncias de la comunidad.')
+@section('meta_description', 'Introduce un número de teléfono o celular y descubre gratis a quién pertenece en Chile. Identifica llamadas de spam, telemarketing, estafas y lee denuncias de la comunidad.')
 
 @section('styles')
 <style>
@@ -91,6 +91,7 @@
     .qa-pill-danger {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 0.4rem;
         background: #fee2e2;
         color: #b91c1c;
@@ -111,6 +112,7 @@
     .qa-pill-blue {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 0.4rem;
         background: #eff6ff;
         color: var(--primary);
@@ -350,18 +352,84 @@
     }
 
     @media (max-width: 640px) {
+        .search-section {
+            padding: 1.5rem 0.5rem 1.25rem;
+        }
         .search-section h1 {
-            font-size: 1.8rem;
+            font-size: 1.65rem;
+            line-height: 1.25;
+        }
+        .search-section p {
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
         }
         .search-form {
             flex-direction: column;
             border-radius: var(--radius);
-            padding: 0.6rem;
+            padding: 0.5rem;
             gap: 0.5rem;
+        }
+        .search-form input {
+            text-align: center;
+            padding: 0.6rem 0.5rem;
+            font-size: 1rem;
         }
         .search-form .btn-search {
             width: 100%;
             border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+        }
+        .quick-actions {
+            flex-direction: column;
+            width: 100%;
+            gap: 0.5rem;
+        }
+        .quick-actions a {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        .vcf-promo-banner {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.25rem 1rem;
+            gap: 0.85rem;
+        }
+        .vcf-promo-left {
+            flex-direction: column;
+            text-align: center;
+        }
+        .vcf-promo-btn {
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+        .section-header {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .pills-grid {
+            justify-content: center;
+        }
+        .eeat-author-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.25rem 1rem;
+            gap: 1rem;
+        }
+        .eeat-avatar {
+            margin: 0 auto;
+        }
+        .faqs {
+            padding: 1.25rem 1rem;
+        }
+        .report-cta-section form {
+            flex-direction: column;
+        }
+        .report-cta-section button {
+            width: 100%;
         }
     }
 </style>
@@ -372,7 +440,7 @@
     <!-- Hero Search Section -->
     <section class="search-section">
         <h1>¿A quién pertenece este número de teléfono?</h1>
-        <p>Introduce cualquier número fijo o celular y descubrí gratis quién te llama en Chile y si es spam o estafa.</p>
+        <p>Introduce cualquier número fijo o celular y descubre gratis quién te llama en Chile y si es spam o estafa.</p>
 
         <div class="search-form-wrapper">
             <form action="{{ route('search') }}" method="GET" class="search-form">
@@ -382,7 +450,7 @@
         </div>
 
         <div class="quick-actions">
-            <span style="font-size: 0.85rem; color: var(--text-muted);">¿Querés reportar o consultar una llamada?</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">¿Quieres reportar o consultar una llamada?</span>
             <a href="#notificar-telefono-sospechoso" class="qa-pill-danger">
                 <span>🚨</span> Notificar teléfono sospechoso <span>⬇</span>
             </a>
@@ -397,7 +465,7 @@
                 <span class="vcf-promo-icon">🚫</span>
                 <div class="vcf-promo-text">
                     <strong>¿Cansado de recibir llamadas SPAM en tu celular?</strong>
-                    <span>Bloqueá cientos de números en tu móvil en 1 clic con nuestra lista VCF gratis para Chile.</span>
+                    <span>Bloquea cientos de números en tu teléfono en 1 clic con nuestra lista VCF gratis para Chile.</span>
                 </div>
             </div>
             <a href="{{ route('vcf.index') }}" class="vcf-promo-btn">
@@ -407,10 +475,11 @@
     </section>
 
     <!-- Pills Grid: Números Investigados -->
+    @if($pillsPhones->isNotEmpty())
     <section style="margin-bottom: 2.5rem;">
         <div class="section-header">
             <h2>
-                <span>📞</span> Teléfonos y Celulares en el Directorio Chileno
+                <span>📞</span> Teléfonos y Celulares Reportados en Chile
             </h2>
             <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">
                 {{ number_format($totalPhones) }} números registrados
@@ -428,6 +497,20 @@
             @endforeach
         </div>
     </section>
+    @else
+    <section style="margin-bottom: 2.5rem; text-align: center; background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem 1.5rem; box-shadow: var(--shadow-sm);">
+        <span style="font-size: 2.2rem; display: block; margin-bottom: 0.5rem;">🛡️</span>
+        <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); margin-bottom: 0.5rem;">
+            Directorio Libre de SPAM en Construcción Colaborativa
+        </h2>
+        <p style="color: var(--text-muted); font-size: 0.92rem; max-width: 540px; margin: 0 auto 1.25rem; line-height: 1.5;">
+            Solo publicamos reportes y teléfonos verificados por la comunidad. Si recibiste una llamada sospechosa en Chile, búscalo arriba o notifícalo para alertar a otros usuarios.
+        </p>
+        <a href="{{ route('area-codes.index') }}" class="btn btn-outline" style="font-size: 0.88rem; padding: 0.5rem 1.2rem; display:inline-flex; align-items:center; gap:6px;">
+            <span>📍</span> Ver Directorio de Prefijos Regionales (SUBTEL) ➔
+        </a>
+    </section>
+    @endif
 
     <!-- Guía de Estafas Frecuentes en Chile -->
     <section style="background:linear-gradient(135deg, #1e293b, #0f172a); color:white; border-radius:var(--radius-lg); padding:2rem; margin-bottom:3rem; box-shadow:var(--shadow-hover)">
@@ -461,14 +544,14 @@
         <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <summary itemprop="name">¿Qué debo hacer si recibo llamadas de spam constantemente en mi celular?</summary>
             <div class="faq-content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p itemprop="text">Si recibís llamadas recurrentes en Chile, lo más recomendable es bloquear el número desde los ajustes de tu celular o descargar nuestra lista VCF gratis. Además, podés buscar el número en nuestra plataforma para comprobar si otros usuarios lo reportaron y dejar tu denuncia.</p>
+                <p itemprop="text">Si recibes llamadas recurrentes en Chile, lo más recomendable es bloquear el número desde los ajustes de tu celular o descargar nuestra lista VCF gratis. Además, puedes buscar el número en nuestra plataforma para comprobar si otros usuarios lo reportaron y dejar tu denuncia.</p>
             </div>
         </details>
         
         <details itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
             <summary itemprop="name">¿Cómo inscribo mi teléfono en «No Molestar» del SERNAC?</summary>
             <div class="faq-content" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <p itemprop="text">Podés inscribir tus líneas fijas y celulares de forma gratuita en el portal oficial del SERNAC (sernac.cl) utilizando tu ClaveÚnica. Las empresas notificadas disponen de 1 día hábil para dejar de contactarte bajo apercibimiento de multas de hasta 300 UTM.</p>
+                <p itemprop="text">Puedes inscribir tus líneas fijas y celulares de forma gratuita en el portal oficial del SERNAC (sernac.cl) utilizando tu ClaveÚnica. Las empresas notificadas disponen de 1 día hábil para dejar de contactarte bajo apercibimiento de multas de hasta 300 UTM.</p>
             </div>
         </details>
 
@@ -488,7 +571,7 @@
                 Notificar un Teléfono Sospechoso
             </h2>
             <p style="font-size: 0.92rem; color: var(--text-muted);">
-                Ingresá el número que te llamó para buscar su ficha o crearla automáticamente y advertir a otros usuarios en Chile.
+                Ingresa el número que te llamó para buscar su ficha o crearla automáticamente y advertir a otros usuarios en Chile.
             </p>
         </div>
 

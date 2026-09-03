@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Sobre mí - Víctor Alonso | Creador de QuiénLlama')
-@section('meta_description', 'Conocé a Víctor Alonso, desarrollador web, especialista SEO y creador del directorio antispam colaborativo QuiénLlama.')
+@section('meta_description', 'Conoce a Víctor Alonso, desarrollador web, especialista SEO y creador del directorio antispam colaborativo QuiénLlama.')
 
 @section('styles')
 <style>
@@ -114,7 +114,7 @@
 
         <h2>🤝 Contacto y Canales Profesionales</h2>
         <p>
-            Si detectaste algún problema técnico, deseás solicitar la revisión de una ficha o querés proponer una mejora en la plataforma, podés utilizar nuestros canales oficiales:
+            Si detectaste algún problema técnico, deseas solicitar la revisión de una ficha o quieres proponer una mejora en la plataforma, puedes utilizar nuestros canales oficiales:
         </p>
 
         <div class="about-badges">

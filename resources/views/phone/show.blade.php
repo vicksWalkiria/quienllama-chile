@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', '¿De quién es el ' . $formatted . '? Quién me llama y denuncias | QuiénLlama')
-@section('meta_description', '¿De quién es el teléfono ' . $formatted . ' (' . ($phone->location ?: 'Chile') . ')? Descubrí quién te llama, si es spam o estafa, opiniones de la comunidad y cómo bloquearlo.')
+@section('meta_description', '¿De quién es el teléfono ' . $formatted . ' (' . ($phone->location ?: 'Chile') . ')? Descubre quién te llama, si es spam o estafa, opiniones de la comunidad y cómo bloquearlo.')
 
 @section('styles')
 <style>
@@ -114,12 +114,12 @@
     }
 
     .btn-nollame {
-        background: #0284c7;
+        background: var(--primary);
         color: white;
-        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);
+        box-shadow: 0 2px 6px rgba(0, 51, 160, 0.2);
     }
     .btn-nollame:hover {
-        background: #0369a1;
+        background: var(--primary-hover);
     }
 
     .btn-wa {
@@ -138,6 +138,53 @@
         padding: 1.75rem;
         margin-bottom: 2rem;
         box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 640px) {
+        .phone-header {
+            padding: 1.25rem 1rem;
+            text-align: center;
+        }
+        .phone-header h1 {
+            font-size: 1.6rem;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .spam-meter-pills {
+            justify-content: center;
+            gap: 6px;
+        }
+        .meter-pill {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+        }
+        .action-btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .action-btn-row .btn-action {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.82rem;
+            padding: 8px 6px;
+            white-space: nowrap;
+        }
+        .card {
+            padding: 1.25rem 1rem;
+        }
+        .card-title {
+            font-size: 1.15rem;
+        }
+        .vote-options {
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .dial-table td {
+            font-size: 0.82rem;
+            padding: 0.6rem 0.25rem;
+        }
     }
 
     .card-title {
@@ -411,7 +458,7 @@
                 ¿Cómo puedo bloquear este número en mi celular?
             </h4>
             <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6">
-                Podés descargarte directamente el contacto VCF con el botón superior o bloquearlo desde la aplicación de Teléfono de tu celular (Android o iPhone) en las opciones del número en el historial de llamadas recientes.
+                Puedes descargar directamente el contacto VCF con el botón superior o bloquearlo desde la aplicación de Teléfono de tu celular (Android o iPhone) en las opciones del número en el historial de llamadas recientes.
             </p>
         </div>
     </div>
@@ -458,7 +505,7 @@ function copyNumber(num) {
       "name": "¿Cómo bloquear las llamadas de {{ $formatted }} en Chile?",
       "acceptedAnswer": {
         "@@type": "Answer",
-        "text": "Podés bloquearlo desde el menú de llamadas recientes de tu celular Android o iPhone, o descargando la tarjeta VCF desde cl.quienllama.com.es."
+        "text": "Puedes bloquearlo desde el menú de llamadas recientes de tu celular Android o iPhone, o descargando la tarjeta VCF desde cl.quienllama.com.es."
       }
     }
   ]

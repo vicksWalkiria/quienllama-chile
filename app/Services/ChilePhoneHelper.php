@@ -5,7 +5,7 @@ namespace App\Services;
 class ChilePhoneHelper
 {
     /**
-     * Códigos de área (características) y sus ubicaciones en Chile según SUBTEL.
+     * Códigos de área y sus ubicaciones en Chile según SUBTEL.
      * Ordenados por longitud decreciente para matchear correctamente.
      */
     protected static array $areaCodes = [

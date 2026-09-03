@@ -36,7 +36,7 @@ class PhoneController extends Controller
                 'number' => $clean,
                 'area_code' => $areaInfo['code'],
                 'location' => $areaInfo['location'],
-                'spam_score' => 15,
+                'spam_score' => 0,
                 'views' => 1,
             ]);
         } else {

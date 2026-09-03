@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Directorio de Códigos de Área y Prefijos Telefónicos de Chile (SUBTEL)')
-@section('meta_description', 'Guía oficial y completa de prefijos telefónicos y códigos de área de Chile según SUBTEL. Consultá de qué ciudad o región te llaman y cómo marcar.')
+@section('meta_description', 'Guía oficial y completa de prefijos telefónicos y códigos de área de Chile según SUBTEL. Consulta de qué ciudad o región te llaman y cómo marcar.')
 
 @section('styles')
 <style>
@@ -188,7 +188,7 @@
         </span>
         <h1>Directorio de Prefijos y Códigos de Área de Chile</h1>
         <p>
-            Guía unificada de códigos de área para telefonía fija y móvil según la <strong>Subsecretaría de Telecomunicaciones (SUBTEL)</strong>. Consultá a qué región o ciudad corresponde cada prefijo y descubrí números reportados.
+            Guía unificada de códigos de área para telefonía fija y móvil según la <strong>Subsecretaría de Telecomunicaciones (SUBTEL)</strong>. Consulta a qué región o ciudad corresponde cada prefijo y descubre números reportados.
         </p>
 
         <!-- Filtro Interactivo en Tiempo Real -->

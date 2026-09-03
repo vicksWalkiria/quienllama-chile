@@ -53,7 +53,7 @@ class SearchController extends Controller
             return redirect()->route('phone.show', ['number' => $normalized]);
         }
 
-        // Búsqueda por coincidencia parcial o característica
+        // Búsqueda por coincidencia parcial o código de área
         $cleanDigits = preg_replace('/\D/', '', $q);
         $phones = Phone::where('number', 'like', "%{$cleanDigits}%")
             ->orWhere('location', 'like', "%{$q}%")

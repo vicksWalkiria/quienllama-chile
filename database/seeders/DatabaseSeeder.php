@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(ChilePhonesSeeder::class);
+        // No fake data seeded. Real organic phone and comment data only.
     }
 }

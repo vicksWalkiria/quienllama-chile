@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Contacto y Soporte - QuiénLlama Chile')
-@section('meta_description', '¿Tenés alguna consulta, error que reportar o sugerencia para QuiénLlama Chile? Contactanos a través de nuestro formulario oficial.')
+@section('meta_description', '¿Tienes alguna consulta, error que reportar o sugerencia para QuiénLlama Chile? Contáctanos a través de nuestro formulario oficial.')
 
 @section('styles')
 <style>
@@ -86,7 +86,7 @@
             <div class="contact-icon-badge">✉️</div>
             <h1>Contacto y Soporte</h1>
             <p>
-                ¿Detectaste algún problema técnico, deseás solicitar la revisión o rectificación de un número, o querés proponernos una mejora? Envianos tu consulta a continuación.
+                ¿Detectaste algún problema técnico, deseas solicitar la revisión o rectificación de un número, o quieres proponernos una mejora? Envíanos tu consulta a continuación.
             </p>
         </div>
 
@@ -115,7 +115,7 @@
 
             <div class="form-group">
                 <label for="message" class="form-label">Tu Mensaje (*)</label>
-                <textarea id="message" name="message" rows="5" required minlength="10" placeholder="Explicá detalladamente tu consulta, adjuntando el número afectado si corresponde..." class="form-control">{{ old('message') }}</textarea>
+                <textarea id="message" name="message" rows="5" required minlength="10" placeholder="Explica detalladamente tu consulta, adjuntando el número afectado si corresponde..." class="form-control">{{ old('message') }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width:100%; padding:0.9rem">
@@ -124,7 +124,7 @@
         </form>
 
         <div style="margin-top:2rem; padding-top:1.5rem; border-top:1px solid var(--border); text-align:center; font-size:0.85rem; color:var(--text-muted)">
-            También podés escribir directamente a <a href="mailto:soy@victor-alonso.es" style="color:var(--primary); font-weight:700">soy@victor-alonso.es</a>
+            También puedes escribir directamente a <a href="mailto:soy@victor-alonso.es" style="color:var(--primary); font-weight:700">soy@victor-alonso.es</a>
         </div>
     </div>
 </div>

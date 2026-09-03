@@ -36,25 +36,25 @@
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem; margin-bottom:3rem">
             <div style="background:white; border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.75rem; box-shadow:var(--shadow)">
                 <div style="font-size:2rem; margin-bottom:0.75rem">1️⃣</div>
-                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">Ingresá al portal SERNAC</h3>
+                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">Ingresa al portal SERNAC</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6">
-                    Accedé a <strong>sernac.cl</strong> y dirigite a la sección <em>Portal del Consumidor</em> utilizando tu <strong>ClaveÚnica</strong> del Registro Civil.
+                    Accede a <strong>sernac.cl</strong> y dirígete a la sección <em>Portal del Consumidor</em> utilizando tu <strong>ClaveÚnica</strong> del Registro Civil.
                 </p>
             </div>
 
             <div style="background:white; border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.75rem; box-shadow:var(--shadow)">
                 <div style="font-size:2rem; margin-bottom:0.75rem">2️⃣</div>
-                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">Seleccioná «No Molestar»</h3>
+                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">Selecciona «No Molestar»</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6">
-                    En el menú lateral hacé clic en la opción «No Molestar» y seleccioná «Ingresar nueva solicitud».
+                    En el menú lateral haz clic en la opción «No Molestar» y selecciona «Ingresar nueva solicitud».
                 </p>
             </div>
 
             <div style="background:white; border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.75rem; box-shadow:var(--shadow)">
                 <div style="font-size:2rem; margin-bottom:0.75rem">3️⃣</div>
-                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">Indicá tus números y empresas</h3>
+                <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">Indica tus números y empresas</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6">
-                    Ingresá tus 9 dígitos de celular o línea fija y marcá las empresas o sectores (telecomunicaciones, bancos, seguros) de los que no deseás recibir llamados.
+                    Ingresa tus 9 dígitos de celular o línea fija y marca las empresas o sectores (telecomunicaciones, bancos, seguros) de los que no deseas recibir llamadas.
                 </p>
             </div>
         </div>
@@ -75,14 +75,14 @@
             <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem">
                 <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">¿Qué ocurre si continúan llamando?</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6; margin:0">
-                    Podés realizar una denuncia por incumplimiento directamente en el SERNAC adjuntando la fecha y hora de la llamada. Las empresas se exponen a multas judiciales de hasta <strong>300 UTM</strong> por cada infracción.
+                    Puedes realizar una denuncia por incumplimiento directamente en el SERNAC adjuntando la fecha y hora de la llamada. Las empresas se exponen a multas judiciales de hasta <strong>300 UTM</strong> por cada infracción.
                 </p>
             </div>
 
             <div style="background:white; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem">
                 <h3 style="font-size:1.05rem; font-weight:800; color:var(--text-main); margin-bottom:0.5rem">¿El portal frena llamadas fraudulentas o estafas bancarias?</h3>
                 <p style="font-size:0.92rem; color:var(--text-muted); line-height:1.6; margin:0">
-                    No. Los delincuentes y estafadores operan al margen de la ley con números clonados o VoIP (prefijo 44). Para protegerte de estos fraudes, utilizá el <strong>buscador de QuiénLlama</strong> y descargá nuestros <strong>paquetes VCF</strong> para silenciarlos directamente en tu dispositivo.
+                    No. Los delincuentes y estafadores operan al margen de la ley con números clonados o VoIP (prefijo 44). Para protegerte de estos fraudes, utiliza el <strong>buscador de QuiénLlama</strong> y descarga nuestros <strong>paquetes VCF</strong> para silenciarlos directamente en tu dispositivo.
                 </p>
             </div>
         </div>
@@ -91,7 +91,7 @@
         <div style="background:linear-gradient(135deg, #0033a0, #001f66); color:white; border-radius:var(--radius-lg); padding:2rem; text-align:center; box-shadow:var(--shadow)">
             <h3 style="font-size:1.4rem; font-weight:900; margin-bottom:0.75rem">Acceso Oficial al Portal del Consumidor</h3>
             <p style="color:#cbd5e1; font-size:0.95rem; max-width:600px; margin:0 auto 1.5rem">
-                Ingresá directamente al sitio web del Servicio Nacional del Consumidor de Chile para gestionar tus solicitudes.
+                Ingresa directamente al sitio web del Servicio Nacional del Consumidor de Chile para gestionar tus solicitudes.
             </p>
             <a href="https://www.sernac.cl/portal/618/w3-propertyvalue-63025.html" target="_blank" rel="noopener noreferrer" class="btn" style="background:#ffffff; color:#0033a0; font-weight:800; padding:0.85rem 1.75rem">
                 Ir a SERNAC «No Molestar» ➔

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Bloqueador Masivo de Llamadas Spam en Chile (.VCF) - QuiénLlama')
-@section('meta_description', 'Descargá gratis la lista de contactos VCF con los números spam más activos en Chile. Bloqueá llamadas molestas en tu celular Android o iPhone en 1 minuto.')
+@section('meta_description', 'Descarga gratis la lista de contactos VCF con los números spam más activos en Chile. Bloquea llamadas molestas en tu celular Android o iPhone en 1 minuto.')
 
 @section('content')
     <div class="content-tool">
@@ -11,7 +11,7 @@
                 Bloqueador Masivo de Spam Telefónico en Chile
             </h1>
             <p style="font-size:1.1rem; color:var(--text-muted); line-height:1.6">
-                Descargá en tu celular una lista actualizada en formato <strong>.VCF</strong> con los teléfonos más denunciados por telemarketing agresivo y estafas en el país (+56), y bloquealos a todos en 1 minuto.
+                Descarga en tu celular una lista actualizada en formato <strong>.VCF</strong> con los teléfonos más denunciados por telemarketing agresivo y estafas en el país (+56), y bloquéalos a todos en 1 minuto.
             </p>
         </div>
 
@@ -68,9 +68,9 @@
                     <div style="width:40px; height:40px; border-radius:50%; background:var(--primary-light); color:var(--primary); font-weight:900; display:flex; align-items:center; justify-content:center; margin-bottom:0.75rem; font-size:1.1rem">
                         1
                     </div>
-                    <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem">Descargá el archivo</h3>
+                    <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem">Descarga el archivo</h3>
                     <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5">
-                        Elegí cualquiera de los paquetes de arriba desde tu celular o computadora. Se descargará un archivo con extensión <code>.vcf</code>.
+                        Elige cualquiera de los paquetes de arriba desde tu celular o computadora. Se descargará un archivo con extensión <code>.vcf</code>.
                     </p>
                 </div>
 
@@ -78,9 +78,9 @@
                     <div style="width:40px; height:40px; border-radius:50%; background:var(--primary-light); color:var(--primary); font-weight:900; display:flex; align-items:center; justify-content:center; margin-bottom:0.75rem; font-size:1.1rem">
                         2
                     </div>
-                    <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem">Abrilo en Contactos</h3>
+                    <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem">Ábrelo en Contactos</h3>
                     <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5">
-                        Tocá el archivo descargado. Tu celular (Android o iPhone) te preguntará si querés importar los contactos a tu agenda. Aceptá la importación.
+                        Toca el archivo descargado. Tu celular (Android o iPhone) te preguntará si quieres importar los contactos a tu agenda. Acepta la importación.
                     </p>
                 </div>
 
@@ -88,9 +88,9 @@
                     <div style="width:40px; height:40px; border-radius:50%; background:var(--primary-light); color:var(--primary); font-weight:900; display:flex; align-items:center; justify-content:center; margin-bottom:0.75rem; font-size:1.1rem">
                         3
                     </div>
-                    <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem">Bloqueá el contacto</h3>
+                    <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:0.4rem">Bloquea el contacto</h3>
                     <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.5">
-                        Se creará un contacto llamado <strong>SPAM QuienLlama</strong>. Entrá en tu agenda, abrilo y tocá en <strong>"Bloquear contacto"</strong>. ¡Listo! Ninguno de esos números volverá a sonar.
+                        Se creará un contacto llamado <strong>SPAM QuienLlama</strong>. Entra en tu agenda, ábrelo y pulsa en <strong>"Bloquear contacto"</strong>. ¡Listo! Ninguno de esos números volverá a sonar.
                     </p>
                 </div>
             </div>
