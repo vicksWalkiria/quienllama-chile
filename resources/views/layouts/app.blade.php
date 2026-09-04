@@ -779,6 +779,171 @@
                 gap: 0.75rem;
             }
         }
+        /* Banner Global App Android Chile */
+        .app-global-banner-cl {
+            background: linear-gradient(135deg, #002266 0%, #0033a0 50%, #001f4d 100%);
+            border: 2px solid #60a5fa;
+            border-radius: var(--radius);
+            padding: 1.15rem 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(0, 51, 160, 0.28);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-global-banner-cl::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(213, 43, 30, 0.24) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .app-global-banner-cl .banner-badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #d52b1e;
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.65rem;
+            box-shadow: 0 2px 6px rgba(213, 43, 30, 0.4);
+        }
+
+        .app-global-banner-cl .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.25rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .app-global-banner-cl .banner-icon {
+            flex-shrink: 0;
+            width: 54px;
+            height: 54px;
+            background: white;
+            border-radius: 12px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-global-banner-cl .banner-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .app-global-banner-cl .banner-text {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .app-global-banner-cl .banner-title {
+            font-size: 1.12rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .app-global-banner-cl .banner-rating {
+            background: rgba(0, 0, 0, 0.25);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fef08a;
+        }
+
+        .app-global-banner-cl .banner-desc {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.92);
+            margin: 0;
+        }
+
+        .app-global-banner-cl .banner-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .app-global-banner-cl .btn-playstore {
+            background: #ffffff;
+            color: #0f172a;
+            padding: 0.65rem 1.15rem;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .app-global-banner-cl .btn-playstore:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+            color: #0033a0;
+        }
+
+        .app-global-banner-cl .btn-learn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: white;
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .app-global-banner-cl .btn-learn:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        @media (max-width: 840px) {
+            .app-global-banner-cl .banner-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .app-global-banner-cl .banner-actions {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
+            .app-global-banner-cl .btn-playstore,
+            .app-global-banner-cl .btn-learn {
+                flex: 1;
+                justify-content: center;
+                text-align: center;
+            }
+        }
     </style>
     @yield('styles')
 </head>
@@ -813,6 +978,7 @@
                 <a href="{{ route('home') }}">Buscar</a>
                 <a href="{{ route('area-codes.index') }}">Prefijos SUBTEL</a>
                 <a href="{{ route('vcf.index') }}">Bloquear SPAM</a>
+                <a href="{{ url('/app') }}" style="color: #fef08a; font-weight:800; display:inline-flex; align-items:center; gap:4px;">📲 App Android</a>
                 <a href="https://t.me/+C91vWOozJvI4NzJk" target="_blank" rel="noopener noreferrer" class="nav-telegram-btn" onclick="if(typeof trackGoal==='function'){trackGoal('join_telegram_community', {event_label:'header_nav'});}">💬 Únete a la comunidad</a>
                 <a href="{{ route('legal.no-molestar') }}">SERNAC No Molestar</a>
                 <a href="{{ route('legal.about') }}">Sobre mí</a>
@@ -843,6 +1009,33 @@
 
     <!-- Main Container -->
     <main class="container">
+        @if(!request()->is('app*'))
+        <aside class="app-global-banner-cl" aria-label="Descargar aplicación Quién Llama para Android">
+            <div class="banner-badge-live">¡YA DISPONIBLE EN GOOGLE PLAY! 🇨🇱</div>
+            <div class="banner-content">
+                <div class="banner-icon">
+                    <img src="{{ asset('images/app/1.png') }}" alt="App Quién Llama Android" width="48" height="48" loading="lazy">
+                </div>
+                <div class="banner-text">
+                    <div class="banner-title">
+                        <span>📲 ¿Aburrido de las pitanzas y el cuento del tío? ¡Instala la App Oficial!</span>
+                        <span class="banner-rating">⭐ 5.0 · 100% Gratis</span>
+                    </div>
+                    <p class="banner-desc">
+                        Identifica llamadas sospechosas, frena estafas telefónicas y consulta prefijos chilenos en tiempo real directo en tu celular.
+                    </p>
+                </div>
+                <div class="banner-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.walkiria.quienllama" target="_blank" rel="noopener noreferrer" class="btn-playstore" onclick="if(typeof trackGoal==='function'){trackGoal('app_download_click', {event_label:'global_banner_cl'});}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                        Instalar en Play Store
+                    </a>
+                    <a href="{{ url('/app') }}" class="btn-learn">Conoce la App</a>
+                </div>
+            </div>
+        </aside>
+        @endif
+
         @if(session('success'))
             <div class="alert alert-success">
                 <span>✅</span>
@@ -886,7 +1079,12 @@
                 <h4>Herramientas</h4>
                 <ul>
                     <li><a href="{{ route('home') }}">Buscador de Teléfonos</a></li>
+                    <li><a href="{{ url('/app') }}" style="color:var(--primary); font-weight:700">📲 App Android (Google Play)</a></li>
                     <li><a href="{{ route('area-codes.index') }}" style="color:var(--primary); font-weight:700">Prefijos y Códigos de Área</a></li>
+                    <li><a href="{{ route('vcf.index') }}">Bloqueador SPAM VCF (Top Chile)</a></li>
+                    <li><a href="{{ route('legal.no-molestar') }}">Plataforma SERNAC No Molestar</a></li>
+                </ul>
+            </div>
                     <li><a href="{{ route('vcf.index') }}">Bloqueador SPAM VCF (Top Chile)</a></li>
                     <li><a href="{{ route('legal.no-molestar') }}">Plataforma SERNAC No Molestar</a></li>
                 </ul>
