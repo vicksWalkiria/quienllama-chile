@@ -180,7 +180,7 @@
         }
 
         .header-inner {
-            max-width: var(--content-width);
+            max-width: 1380px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -274,16 +274,16 @@
         .header-nav {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
+            gap: 0.55rem;
             white-space: nowrap;
         }
 
         .header-nav a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 0.92rem;
+            font-size: 0.86rem;
             font-weight: 600;
-            padding: 5px 10px;
+            padding: 4px 7px;
             border-radius: 8px;
             transition: all 0.2s;
             opacity: 0.92;
@@ -292,6 +292,26 @@
         .header-nav a:hover {
             opacity: 1;
             background: rgba(255, 255, 255, 0.18);
+        }
+
+        .nav-tg-mobile, .nav-sernac-mobile, .nav-pref-mobile {
+            display: none;
+        }
+        .nav-tg-desktop, .nav-sernac-desktop, .nav-pref-desktop {
+            display: inline;
+        }
+
+        @media (min-width: 1081px) and (max-width: 1250px) {
+            .header-search-wrapper {
+                max-width: 250px;
+            }
+            .header-nav {
+                gap: 0.4rem;
+            }
+            .header-nav a {
+                font-size: 0.82rem;
+                padding: 3px 5px;
+            }
         }
 
         .header-nav a.nav-btn-highlight {
@@ -690,7 +710,7 @@
         }
 
         /* Responsive Breakpoints */
-        @media (max-width: 960px) {
+        @media (max-width: 1080px) {
             .menu-toggle {
                 display: flex;
             }
@@ -711,6 +731,13 @@
 
             .header-nav.active {
                 display: flex;
+            }
+
+            .nav-tg-desktop, .nav-sernac-desktop, .nav-pref-desktop {
+                display: none;
+            }
+            .nav-tg-mobile, .nav-sernac-mobile, .nav-pref-mobile {
+                display: inline;
             }
 
             .footer-grid {
@@ -1169,11 +1196,14 @@
             <!-- Nav Links -->
             <nav class="header-nav" id="header-nav">
                 <a href="{{ route('home') }}">Buscar</a>
-                <a href="{{ route('area-codes.index') }}">Prefijos SUBTEL</a>
+                <a href="{{ route('area-codes.index') }}"><span class="nav-pref-desktop">Prefijos</span><span class="nav-pref-mobile">Prefijos SUBTEL</span></a>
                 <a href="{{ route('vcf.index') }}">Bloquear SPAM</a>
                 <a href="{{ url('/app') }}" style="color: #fef08a; font-weight:800; display:inline-flex; align-items:center; gap:4px;">📲 App Android</a>
-                <a href="https://t.me/+C91vWOozJvI4NzJk" target="_blank" rel="noopener noreferrer" class="nav-telegram-btn" onclick="if(typeof trackGoal==='function'){trackGoal('join_telegram_community', {event_label:'header_nav'});}">💬 Únete a la comunidad</a>
-                <a href="{{ route('legal.no-molestar') }}">SERNAC No Molestar</a>
+                <a href="https://t.me/+C91vWOozJvI4NzJk" target="_blank" rel="noopener noreferrer" class="nav-telegram-btn" onclick="if(typeof trackGoal==='function'){trackGoal('join_telegram_community', {event_label:'header_nav'});}">
+                    <span class="nav-tg-desktop">💬 Telegram</span>
+                    <span class="nav-tg-mobile">💬 Únete a la comunidad</span>
+                </a>
+                <a href="{{ route('legal.no-molestar') }}"><span class="nav-sernac-desktop">No Molestar</span><span class="nav-sernac-mobile">SERNAC No Molestar</span></a>
                 <a href="{{ route('legal.about') }}">Sobre mí</a>
                 <a href="{{ route('contact.index') }}" class="nav-btn-highlight">Contacto</a>
             </nav>
