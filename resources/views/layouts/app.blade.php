@@ -1141,10 +1141,6 @@
                     <li><a href="{{ route('legal.no-molestar') }}">Plataforma SERNAC No Molestar</a></li>
                 </ul>
             </div>
-                    <li><a href="{{ route('vcf.index') }}">Bloqueador SPAM VCF (Top Chile)</a></li>
-                    <li><a href="{{ route('legal.no-molestar') }}">Plataforma SERNAC No Molestar</a></li>
-                </ul>
-            </div>
 
             <div class="footer-col">
                 <h4>Regiones y Prefijos</h4>
