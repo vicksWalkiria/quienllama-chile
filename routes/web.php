@@ -227,11 +227,26 @@ Route::post('/api/v1/report', function (\Illuminate\Http\Request $request) use (
     );
 
     $phone->increment('spam_score', 5);
-    $phone->comments()->create([
+    $comment = $phone->comments()->create([
+        'author_name' => 'Usuario App',
         'reason' => $reason,
         'content' => $content,
         'ip_hash' => hash('sha256', $request->ip() ?: '127.0.0.1')
     ]);
+
+    $hasRealText = \App\Services\NotificationService::isRealCommentText($content);
+
+    // Telegram: siempre notificar al Topic de Chile (Topic 6)
+    try {
+        \App\Services\TelegramAlertService::sendSpamReport($phone, $comment, 'CL', isFastVote: !$hasRealText, source: 'App');
+    } catch (\Throwable $e) {}
+
+    // Email: inmediatamente solo si el usuario redactó un comentario real
+    if ($hasRealText) {
+        try {
+            \App\Services\NotificationService::sendSpamReportAlert($phone, $comment, $request, 'App');
+        } catch (\Throwable $e) {}
+    }
 
     return response()->json(['status' => 'success', 'message' => 'Reporte registrado']);
 });
