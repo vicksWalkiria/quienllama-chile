@@ -22,7 +22,8 @@
         margin-bottom: 0.75rem;
     }
 
-    .search-section p {
+    .search-section .search-subtitle,
+    .search-section > p {
         font-size: 1.05rem;
         color: var(--text-muted);
         line-height: 1.5;
@@ -454,7 +455,7 @@
     <!-- Hero Search Section -->
     <section class="search-section">
         <h1>¿A quién pertenece este número de teléfono?</h1>
-        <p>Ingresa cualquier número fijo o celular y descubre gratis quién te llama en Chile y si es spam o estafa.</p>
+        <p class="search-subtitle">Ingresa cualquier número fijo o celular y descubre gratis quién te llama en Chile y si es spam o estafa.</p>
 
         <div class="search-form-wrapper">
             <form action="{{ route('search') }}" method="GET" class="search-form">
@@ -494,8 +495,8 @@
                     <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
                 </div>
                 <div class="telegram-banner-text">
-                    <h3>💬 Comunidad Antispam en Telegram</h3>
-                    <p>Súmate al grupo oficial de Chile. Consulta dudas, reporta llamadas comerciales y mantente protegido en tiempo real con la comunidad.</p>
+                    <h3 style="color: #ffffff !important; margin: 0 0 0.25rem !important;">💬 Comunidad Antispam en Telegram</h3>
+                    <p style="color: rgba(255, 255, 255, 0.95) !important; font-size: 0.88rem !important; margin: 0 !important; line-height: 1.45 !important;">Súmate al grupo oficial de Chile. Consulta dudas, reporta llamadas comerciales y mantente protegido en tiempo real con la comunidad.</p>
                 </div>
             </div>
             <a href="https://t.me/+C91vWOozJvI4NzJk" target="_blank" rel="noopener noreferrer" class="telegram-banner-btn" onclick="if(typeof trackGoal==='function'){trackGoal('join_telegram_community', {event_label:'home_banner'});}">
