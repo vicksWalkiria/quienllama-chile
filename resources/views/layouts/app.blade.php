@@ -779,169 +779,212 @@
                 gap: 0.75rem;
             }
         }
-        /* Banner Global App Android Chile */
+        /* Global App Android Banner Chile */
         .app-global-banner-cl {
-            background: linear-gradient(135deg, #002266 0%, #0033a0 50%, #001f4d 100%);
-            border: 2px solid #60a5fa;
-            border-radius: var(--radius);
-            padding: 1.15rem 1.4rem;
-            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #021a40 0%, #0033a0 50%, #001f4d 100%);
+            border: 1.5px solid #60a5fa;
+            border-radius: 18px;
+            padding: 1.25rem 1.6rem;
+            margin: 1.25rem auto 1.75rem;
             color: #ffffff;
-            box-shadow: 0 8px 24px rgba(0, 51, 160, 0.28);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-global-banner-cl::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 250px;
-            height: 250px;
-            background: radial-gradient(circle, rgba(213, 43, 30, 0.24) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .app-global-banner-cl .banner-badge-live {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #d52b1e;
-            color: #ffffff;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 3px 9px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.65rem;
-            box-shadow: 0 2px 6px rgba(213, 43, 30, 0.4);
-        }
-
-        .app-global-banner-cl .banner-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1.25rem;
+            gap: 1.5rem;
+            box-shadow: 0 10px 28px -6px rgba(0, 51, 160, 0.4), 0 4px 15px rgba(0, 0, 0, 0.35);
             position: relative;
-            z-index: 2;
+            overflow: hidden;
         }
-
-        .app-global-banner-cl .banner-icon {
+        .app-global-banner-cl::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(213, 43, 30, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .app-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex: 1;
+        }
+        .app-banner-icon-wrap {
+            position: relative;
             flex-shrink: 0;
-            width: 54px;
-            height: 54px;
-            background: white;
-            border-radius: 12px;
-            padding: 4px;
+        }
+        .app-banner-logo {
+            width: 62px;
+            height: 62px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(96, 165, 250, 0.4);
+            display: block;
+        }
+        .app-banner-verif {
+            position: absolute;
+            bottom: -3px;
+            right: -3px;
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 900;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border: 2px solid #021a40;
         }
-
-        .app-global-banner-cl .banner-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+        .app-banner-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
         }
-
-        .app-global-banner-cl .banner-text {
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .app-global-banner-cl .banner-title {
-            font-size: 1.12rem;
-            font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 0.35rem;
+        .app-banner-badge-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
-
-        .app-global-banner-cl .banner-rating {
-            background: rgba(0, 0, 0, 0.25);
-            font-size: 0.75rem;
+        .app-banner-chip {
+            font-size: 0.72rem;
             font-weight: 700;
             padding: 2px 8px;
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #fef08a;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
         }
-
-        .app-global-banner-cl .banner-desc {
-            font-size: 0.88rem;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.92);
+        .app-chip-free {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+        .app-chip-privacy {
+            background: rgba(96, 165, 250, 0.2);
+            color: #93c5fd;
+            border: 1px solid rgba(96, 165, 250, 0.4);
+        }
+        .app-banner-title {
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: #ffffff;
             margin: 0;
+            line-height: 1.3;
         }
-
-        .app-global-banner-cl .banner-actions {
+        .app-banner-desc {
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.88);
+            margin: 0;
+            line-height: 1.4;
+        }
+        .app-banner-actions {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             flex-shrink: 0;
-            flex-wrap: wrap;
         }
-
-        .app-global-banner-cl .btn-playstore {
-            background: #ffffff;
-            color: #0f172a;
-            padding: 0.65rem 1.15rem;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-decoration: none;
+        .btn-app-playstore {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .app-global-banner-cl .btn-playstore:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
-            color: #0033a0;
-        }
-
-        .app-global-banner-cl .btn-learn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            color: white;
-            padding: 0.65rem 1rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
+            gap: 10px;
+            background: #0f172a;
+            color: #ffffff !important;
+            padding: 9px 18px;
+            border-radius: 12px;
             text-decoration: none;
-            transition: background 0.2s;
+            font-weight: 700;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s ease;
             white-space: nowrap;
         }
-
-        .app-global-banner-cl .btn-learn:hover {
-            background: rgba(255, 255, 255, 0.28);
+        .btn-app-playstore:hover {
+            background: #1e293b;
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 51, 160, 0.4);
+            color: #ffffff !important;
         }
-
-        @media (max-width: 840px) {
-            .app-global-banner-cl .banner-content {
+        .btn-app-playstore-txt {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            line-height: 1.1;
+        }
+        .btn-app-sub {
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            opacity: 0.8;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+        .btn-app-main {
+            font-size: 0.98rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .btn-app-learnmore {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff !important;
+            padding: 10px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.84rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .btn-app-learnmore:hover {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: #60a5fa;
+            color: #93c5fd !important;
+        }
+        .nav-app-link {
+            background: rgba(37, 99, 235, 0.2) !important;
+            border: 1.5px solid #2563eb !important;
+            color: #93c5fd !important;
+            font-weight: 800 !important;
+            border-radius: 9999px !important;
+            padding: 0.35rem 0.85rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.35rem !important;
+            transition: all 0.2s ease !important;
+        }
+        .nav-app-link:hover {
+            background: #2563eb !important;
+            color: #ffffff !important;
+            transform: translateY(-1px) !important;
+        }
+        @media (max-width: 900px) {
+            .app-global-banner-cl {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1.25rem 1.1rem;
+                gap: 1.1rem;
+            }
+            .app-banner-left {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 0.85rem;
             }
-            .app-global-banner-cl .banner-actions {
+            .app-banner-actions {
+                flex-direction: column;
                 width: 100%;
-                margin-top: 0.5rem;
             }
-            .app-global-banner-cl .btn-playstore,
-            .app-global-banner-cl .btn-learn {
-                flex: 1;
+            .btn-app-playstore,
+            .btn-app-learnmore {
+                width: 100%;
                 justify-content: center;
-                text-align: center;
+                box-sizing: border-box;
             }
         }
     </style>
@@ -1010,28 +1053,41 @@
     <!-- Main Container -->
     <main class="container">
         @if(!request()->is('app*'))
-        <aside class="app-global-banner-cl" aria-label="Descargar aplicación Quién Llama para Android">
-            <div class="banner-badge-live">¡YA DISPONIBLE EN GOOGLE PLAY! 🇨🇱</div>
-            <div class="banner-content">
-                <div class="banner-icon">
-                    <img src="{{ asset('images/app/1.png') }}" alt="App Quién Llama Android" width="48" height="48" loading="lazy">
+        <aside class="app-global-banner-cl" aria-label="Descargar aplicación oficial Quién Llama para Android">
+            <div class="app-banner-left">
+                <div class="app-banner-icon-wrap">
+                    <img src="{{ asset('images/app/icon_512x512.png') }}" alt="App Quién Llama Android" width="62" height="62" class="app-banner-logo" loading="lazy">
+                    <span class="app-banner-verif" title="App Oficial Verificada">✓</span>
                 </div>
-                <div class="banner-text">
-                    <div class="banner-title">
-                        <span>📲 ¿Aburrido de las pitanzas y el cuento del tío? ¡Instala la App Oficial!</span>
-                        <span class="banner-rating">⭐ 5.0 · 100% Gratis</span>
+                <div class="app-banner-info">
+                    <div class="app-banner-badge-row">
+                        <span class="app-banner-chip" style="background:#d52b1e; color:#ffffff; border:1px solid rgba(255,255,255,0.35);">🇨🇱 ¡YA EN GOOGLE PLAY!</span>
+                        <span class="app-banner-chip" style="background:rgba(0,0,0,0.35); color:#fef08a; border:1px solid rgba(254,240,138,0.35);">⭐ 5.0</span>
+                        <span class="app-banner-chip app-chip-free">100% Gratis</span>
+                        <span class="app-banner-chip app-chip-privacy">🔒 0% Contactos</span>
                     </div>
-                    <p class="banner-desc">
+                    <h2 class="app-banner-title">
+                        ¿Aburrido de las pitanzas y el cuento del tío? ¡Instala la App Oficial!
+                    </h2>
+                    <p class="app-banner-desc">
                         Identifica llamadas sospechosas, frena estafas telefónicas y consulta prefijos chilenos en tiempo real directo en tu celular.
                     </p>
                 </div>
-                <div class="banner-actions">
-                    <a href="https://play.google.com/store/apps/details?id=com.walkiria.quienllama" target="_blank" rel="noopener noreferrer" class="btn-playstore" onclick="if(typeof trackGoal==='function'){trackGoal('app_download_click', {event_label:'global_banner_cl'});}">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-                        Instalar en Play Store
-                    </a>
-                    <a href="{{ url('/app') }}" class="btn-learn">Conoce la App</a>
-                </div>
+            </div>
+            <div class="app-banner-actions">
+                <a href="https://play.google.com/store/apps/details?id=com.walkiria.quienllama" target="_blank" rel="noopener noreferrer" class="btn-app-playstore" onclick="if(typeof trackGoal==='function'){trackGoal('app_download_click', {event_label:'global_banner_cl'});}">
+                    <svg viewBox="0 0 512 512" width="22" height="22" fill="currentColor" aria-hidden="true">
+                        <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+                    </svg>
+                    <div class="btn-app-playstore-txt">
+                        <span class="btn-app-sub">INSTALAR DESDE</span>
+                        <span class="btn-app-main">Google Play</span>
+                    </div>
+                </a>
+                <a href="{{ url('/app') }}" class="btn-app-learnmore">
+                    <span>Conoce la App</span>
+                    <span>➔</span>
+                </a>
             </div>
         </aside>
         @endif
