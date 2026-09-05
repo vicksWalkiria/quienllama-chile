@@ -619,7 +619,8 @@
             gap: 2.5rem;
         }
 
-        .footer-col h4 {
+        .footer-col h4,
+        .footer-col h3 {
             font-size: 0.92rem;
             font-weight: 800;
             color: var(--text-main);
@@ -1339,7 +1340,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>Herramientas</h4>
+                <h3>Herramientas</h3>
                 <ul>
                     <li><a href="{{ route('home') }}">Buscador de Teléfonos</a></li>
                     <li><a href="{{ url('/app') }}" style="color:var(--primary); font-weight:700" onclick="if(typeof trackGoal==='function'){trackGoal('app_nav_click', {event_label:'footer_cl'});}">📲 App Android (Google Play)</a></li>
@@ -1350,7 +1351,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>Regiones y Prefijos</h4>
+                <h3>Regiones y Prefijos</h3>
                 <ul>
                     <li><a href="{{ route('area-codes.show', '2') }}">Santiago y Metropolitana (+56 2)</a></li>
                     <li><a href="{{ route('area-codes.show', '32') }}">Valparaíso y Viña (+56 32)</a></li>
@@ -1364,7 +1365,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>QuiénLlama & Legal</h4>
+                <h3>QuiénLlama & Legal</h3>
                 <ul>
                     <li><a href="{{ route('legal.about') }}" style="color:var(--primary); font-weight:700">Sobre el Desarrollador (EEAT)</a></li>
                     <li><a href="{{ route('contact.index') }}">Contacto y Soporte</a></li>
