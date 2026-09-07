@@ -87,6 +87,22 @@
             </div>
         </div>
 
+        <!-- Bloque Preventivo Incogni Data Brokers -->
+        <div style="background:#eff6ff; border:1.5px solid #93c5fd; border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:2.5rem; display:flex; gap:1rem; align-items:flex-start">
+            <span style="font-size:1.8rem; line-height:1">🛡️</span>
+            <div>
+                <strong style="color:#1e3a8a; font-size:1.05rem; display:block; margin-bottom:0.4rem">
+                    Medida complementaria: Eliminación legal de tus datos ante Data Brokers
+                </strong>
+                <p style="color:#1e40af; font-size:0.92rem; line-height:1.6; margin-bottom:0.75rem">
+                    La plataforma del SERNAC exige el cumplimiento a empresas formales y domiciliadas en Chile. Sin embargo, call centers externos, cobradores insistentes y emisores de spam automatizado obtienen habitualmente listas de contactos a través de intermediarios digitales internacionales (Data Brokers).
+                </p>
+                <p style="color:#1e40af; font-size:0.92rem; line-height:1.6; margin:0">
+                    Para forzar la eliminación sistemática de tu número telefónico, nombre y datos privados de más de 180 empresas intermediarias globales, te sugerimos utilizar <a href="https://deal.incogni.io/aff_c?offer_id=2&aff_id=2891&aff_sub=ql_cl_sernac" target="_blank" rel="noopener nofollow sponsored" style="color:#1d4ed8; font-weight:800; text-decoration:underline;">Incogni (respaldado por Surfshark y con garantía de reembolso de 30 días)</a>.
+                </p>
+            </div>
+        </div>
+
         <!-- External Link CTA -->
         <div style="background:linear-gradient(135deg, #0033a0, #001f66); color:white; border-radius:var(--radius-lg); padding:2rem; text-align:center; box-shadow:var(--shadow)">
             <h3 style="font-size:1.4rem; font-weight:900; margin-bottom:0.75rem">Acceso Oficial al Portal del Consumidor</h3>
