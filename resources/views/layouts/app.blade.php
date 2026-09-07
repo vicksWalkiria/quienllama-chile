@@ -1344,6 +1344,7 @@
                 <ul>
                     <li><a href="{{ route('home') }}">Buscador de Teléfonos</a></li>
                     <li><a href="{{ url('/app') }}" style="color:var(--primary); font-weight:700" onclick="if(typeof trackGoal==='function'){trackGoal('app_nav_click', {event_label:'footer_cl'});}">📲 App Android (Google Play)</a></li>
+                    <li><a href="{{ route('legal.borrar-datos') }}" style="color:var(--primary); font-weight:700">🛡️ ¿Cómo borrar mis datos? (Incogni)</a></li>
                     <li><a href="{{ route('area-codes.index') }}" style="color:var(--primary); font-weight:700">Prefijos y Códigos de Área</a></li>
                     <li><a href="{{ route('vcf.index') }}">Bloqueador SPAM VCF (Top Chile)</a></li>
                     <li><a href="{{ route('legal.no-molestar') }}">Plataforma SERNAC No Molestar</a></li>

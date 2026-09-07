@@ -22,6 +22,9 @@ Route::get('/vcf/descargar/{type?}', [VcfController::class, 'download'])->name('
 Route::get('/no-molestar', [LegalController::class, 'noMolestar'])->name('legal.no-molestar');
 Route::get('/registro-no-llame', function () { return redirect()->route('legal.no-molestar', [], 301); });
 Route::get('/sernac-no-molestar', function () { return redirect()->route('legal.no-molestar', [], 301); });
+Route::get('/como-borrar-mis-datos', [LegalController::class, 'comoBorrarDatos'])->name('legal.borrar-datos');
+Route::get('/borrar-mis-datos', function () { return redirect()->route('legal.borrar-datos', [], 301); });
+Route::get('/incogni', function () { return redirect()->route('legal.borrar-datos', [], 301); });
 Route::get('/privacidad', [LegalController::class, 'privacidad'])->name('legal.privacidad');
 Route::get('/terminos', [LegalController::class, 'terminos'])->name('legal.terminos');
 Route::get('/cookies', [LegalController::class, 'cookies'])->name('legal.cookies');

@@ -20,6 +20,7 @@ class SitemapController extends Controller
                 ['url' => route('area-codes.index'), 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => now()->toAtomString()],
                 ['url' => route('vcf.index'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => now()->toAtomString()],
                 ['url' => route('legal.no-molestar'), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => now()->toAtomString()],
+                ['url' => route('legal.borrar-datos'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => now()->toAtomString()],
                 ['url' => route('legal.about'), 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => now()->toAtomString()],
                 ['url' => route('contact.index'), 'priority' => '0.5', 'changefreq' => 'monthly', 'lastmod' => now()->toAtomString()],
             ];

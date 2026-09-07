@@ -400,6 +400,10 @@
                 📞 {{ str_starts_with($phone->number, '800') ? 'Línea Gratuita (800)' : ($phone->area_code === '9' ? 'Telefonía Móvil / Celular' : 'Línea de Telecomunicaciones SUBTEL') }}
             </span>
 
+            <a href="{{ route('legal.borrar-datos') }}" class="meter-pill" style="text-decoration:none; background:#f0fdf4; color:#166534; border: 1px solid #86efac; font-weight:700;" title="Guía: ¿Cómo hacer que borren mis datos personales de las listas de llamadas?">
+                🛡️ ¿Cómo hacer que borren mis datos?
+            </a>
+
             <span class="meter-pill">
                 👁️ {{ $phone->views }} consultas
             </span>
@@ -417,6 +421,10 @@
 
             <a href="{{ route('legal.no-molestar') }}" class="btn-action btn-nollame">
                 ⚖️ SERNAC «No Molestar»
+            </a>
+
+            <a href="{{ route('legal.borrar-datos') }}" class="btn-action" style="background:#f0fdf4; color:#14532d; border: 1.5px solid #86efac; text-decoration:none;" title="Guía: ¿Cómo hacer que borren mis datos?">
+                ❓ ¿Cómo borrar mis datos?
             </a>
 
             <a href="https://deal.incogni.io/aff_c?offer_id=2&aff_id=2891&aff_sub=ql_cl_topbtn" 
