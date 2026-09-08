@@ -376,6 +376,70 @@
         background: white;
         border-color: var(--primary);
     }
+
+    /* Ficha Técnica y Resumen Directo (GEO / AEO) */
+    .phone-direct-answer-card {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+    }
+    .direct-answer-summary {
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--text-main);
+        background: var(--background);
+        border-left: 4px solid var(--primary);
+        padding: 0.85rem 1.1rem;
+        border-radius: 0 10px 10px 0;
+        margin: 0 0 1.25rem 0;
+    }
+    .phone-specs-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+    }
+    .phone-specs-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        background: #ffffff;
+    }
+    .phone-specs-table th {
+        width: 38%;
+        text-align: left;
+        padding: 0.75rem 1rem;
+        background: var(--background);
+        color: var(--text-main);
+        font-weight: 700;
+        border-bottom: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        vertical-align: middle;
+    }
+    .phone-specs-table td {
+        padding: 0.75rem 1rem;
+        color: var(--text-main);
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+    }
+    .phone-specs-table tr:last-child th,
+    .phone-specs-table tr:last-child td {
+        border-bottom: none;
+    }
+    @media (max-width: 640px) {
+        .phone-specs-table th {
+            width: 44%;
+            padding: 0.65rem 0.75rem;
+            font-size: 0.84rem;
+        }
+        .phone-specs-table td {
+            padding: 0.65rem 0.75rem;
+            font-size: 0.84rem;
+        }
+    }
 </style>
 @endsection
 
@@ -473,6 +537,61 @@
             </div>
         </div>
     </div>
+
+    <!-- Ficha Técnica y Resumen Directo (Optimizado para GEO / AEO / LLMs y Usuarios) -->
+    <section class="card phone-direct-answer-card" id="fichaTecnica">
+        <h2 class="card-title" style="margin-bottom: 0.85rem;">📋 Ficha Técnica y Resumen del {{ $formatted }}</h2>
+
+        <p class="direct-answer-summary">
+            <strong>¿De quién es el teléfono {{ $formatted }}?</strong> 
+            El número <strong>{{ $formatted }}</strong> (formato internacional {{ $dialing['international'] }}) corresponde a una {{ str_starts_with($phone->number, '800') ? 'línea gratuita (800)' : ($phone->area_code === '9' ? 'línea de telefonía móvil / celular' : 'línea de telecomunicaciones SUBTEL') }} con prefijo <strong>{{ $phone->area_code }}</strong> de <strong>{{ $phone->location ?: 'Chile' }}</strong>. 
+            @if($phone->spam_score > 0 || $comments->total() > 0)
+                Registra <strong>{{ $comments->total() }} {{ $comments->total() === 1 ? 'denuncia comunitaria' : 'denuncias comunitarias' }}</strong> con un nivel de riesgo clasificado como <strong>{{ $risk['level'] }}</strong> ({{ $risk['badge'] }}).
+                {{ $risk['level'] === 'Peligroso' || $risk['level'] === 'Sospechoso' ? 'Se recomienda precaución, no entregar datos personales ni bancarios bajo sospecha de estafa o cobranza abusiva, y bloquear las llamadas de esta numeración.' : 'No se aprecian incidencias graves de fraude o estafas en los reportes.' }}
+            @else
+                Actualmente no cuenta con denuncias de fraude ni reportes de spam telefónico registrados en nuestra base comunitaria en Chile.
+            @endif
+        </p>
+
+        <div class="phone-specs-table-wrap">
+            <table class="phone-specs-table">
+                <tbody>
+                    <tr>
+                        <th scope="row">📞 Número de teléfono</th>
+                        <td><strong>{{ $formatted }}</strong> ({{ $phone->number }})</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">🌐 Marcación internacional</th>
+                        <td>{{ $dialing['international'] }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">📍 Región / Prefijo SUBTEL</th>
+                        <td>{{ $phone->location ?: 'Chile' }} (Prefijo {{ $phone->area_code }})</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">📶 Tipo de línea</th>
+                        <td>{{ str_starts_with($phone->number, '800') ? 'Línea Gratuita (800)' : ($phone->area_code === '9' ? 'Telefonía Móvil / Celular' : 'Telefonía Fija SUBTEL') }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">🚨 Nivel de riesgo</th>
+                        <td>
+                            <span style="background: {{ $risk['bg'] }}; color: {{ $risk['text_color'] }}; border: 1.5px solid {{ $risk['color'] }}; padding: 3px 10px; border-radius: 12px; font-weight: 700; font-size: 0.85rem; display: inline-block;">
+                                {{ $risk['icon'] }} {{ $risk['badge'] }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">💬 Reportes registrados</th>
+                        <td>{{ $comments->total() }} {{ $comments->total() === 1 ? 'denuncia' : 'denuncias' }} de usuarios</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">⚖️ Protección oficial</th>
+                        <td>Bloqueo con tarjeta VCF / Portal SERNAC «No Molestar» (Ley del Consumidor)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <!-- Quick Poll Voting Card -->
     <div class="card" style="border: 2px solid var(--primary); background:#ffffff;">
@@ -748,27 +867,52 @@ function shareAlertNative(phone, formatted, url, fullText) {
 }
 </script>
 
-<!-- Schema.org FAQPage -->
+<!-- Schema.org WebPage y FAQPage estructurados para GEO / AEO -->
 <script type="application/ld+json">
 {
   "@@context": "https://schema.org",
-  "@@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
     {
-      "@@type": "Question",
-      "name": "¿De quién es el número {{ $formatted }}?",
-      "acceptedAnswer": {
-        "@@type": "Answer",
-        "text": "El número {{ $formatted }} corresponde a una línea con código o prefijo {{ $phone->area_code }} de {{ $phone->location ?: 'Chile' }}."
+      "@type": "WebPage",
+      "@id": "{{ url()->current() }}#webpage",
+      "name": "¿De quién es el teléfono {{ $formatted }}?",
+      "url": "{{ url()->current() }}",
+      "description": "<?= addslashes(strip_tags('¿De quién es el teléfono ' . $formatted . ' (' . ($phone->location ?: 'Chile') . ')? Descubre quién te llama, si es spam o estafa, opiniones de la comunidad y cómo bloquearlo.')) ?>",
+      "inLanguage": "es-CL",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [".direct-answer-summary", "h1"]
       }
     },
     {
-      "@@type": "Question",
-      "name": "¿Cómo bloquear las llamadas de {{ $formatted }} en Chile?",
-      "acceptedAnswer": {
-        "@@type": "Answer",
-        "text": "Puedes bloquearlo desde el menú de llamadas recientes de tu celular Android o iPhone, o descargando la tarjeta VCF desde cl.quienllama.com.es."
-      }
+      "@type": "FAQPage",
+      "@id": "{{ url()->current() }}#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿De quién es el número {{ $formatted }}?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El número {{ $formatted }} (internacional {{ $dialing['international'] }}) corresponde a una línea con prefijo {{ $phone->area_code }} de {{ $phone->location ?: 'Chile' }}. Cuenta con {{ $comments->total() }} denuncias registradas por la comunidad y un nivel de riesgo clasificado como {{ $risk['level'] }}."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Es peligroso contestar las llamadas del {{ $formatted }}?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ $risk['level'] === 'Peligroso' || $risk['level'] === 'Sospechoso' ? 'Sí, existen antecedentes de usuarios clasificándolo como cobranza extrajudicial, telemarketing no solicitado o intento de fraude telefónico. Se aconseja no entregar datos personales ni claves de tarjetas bancarias.' : 'Actualmente no cuenta con un alto volumen de denuncias de peligro en nuestra base comunitaria en Chile.' }}"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo bloquear las llamadas de {{ $formatted }} en Chile?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Puedes bloquearlo desde las opciones del registro de llamadas en tu teléfono Android o iPhone, descargando la tarjeta VCF gratuita desde QuiénLlama Chile o solicitando el bloqueo en el portal «No Molestar» del SERNAC."
+          }
+        }
+      ]
     }
   ]
 }
