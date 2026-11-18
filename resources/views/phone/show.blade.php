@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
-@section('title', '¿De quién es el ' . $formatted . '? Quién me llama y denuncias | QuiénLlama')
-@section('meta_description', '¿De quién es el teléfono ' . $formatted . ' (' . ($phone->location ?: 'Chile') . ')? Descubre quién te llama, si es spam o estafa, opiniones de la comunidad y cómo bloquearlo.')
+@section('title', $phone->number . ' (' . $formatted . '): ¿Quién me llama? Denuncias Spam | QuiénLlama Chile')
+@section('meta_description', '¿Quién te llama del ' . $phone->number . ' (' . $formatted . ' · ' . ($phone->location ?: 'Chile') . ')? ' . ($comments->total() > 0 ? $comments->total() . ($comments->total() === 1 ? ' denuncia registrada' : ' denuncias registradas') . ' (riesgo ' . $risk['level'] . '). ' : '') . 'Descubre si es spam, cobranza o estafa en Chile y cómo bloquearlo.')
+@section('og_image', route('phone.image', $phone->number))
+@section('og_image_alt', '¿Quién me llama del ' . $phone->number . ' (' . $formatted . ')? Nivel de riesgo y denuncias en Chile')
 
 @section('styles')
 <style>
@@ -391,10 +393,94 @@
         line-height: 1.65;
         color: var(--text-main);
         background: var(--background);
-        border-left: 4px solid var(--primary);
-        padding: 0.85rem 1.1rem;
-        border-radius: 0 10px 10px 0;
+        border: 1px solid #cbd5e1;
+        padding: 0.9rem 1.1rem;
+        border-radius: 10px;
         margin: 0 0 1.25rem 0;
+        font-variant-numeric: tabular-nums;
+    }
+    .phone-visual-card-fig {
+        margin: 0 0 1.25rem 0;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f8fafc;
+    }
+    .phone-visual-card-fig img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1200 / 630;
+    }
+    .phone-visual-card-fig figcaption {
+        padding: 0.55rem 0.9rem;
+        font-size: 0.8rem;
+        color: #475569;
+        background: #ffffff;
+        border-top: 1px solid #e2e8f0;
+        font-variant-numeric: tabular-nums;
+    }
+    .related-visual-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    .related-visual-item {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        text-decoration: none;
+        background: #f8fafc;
+        color: var(--text-main);
+        transition: border-color 0.15s, transform 0.15s;
+    }
+    .related-visual-item:hover {
+        border-color: var(--primary);
+        transform: translateY(-1px);
+    }
+    .related-visual-item img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1200 / 630;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .related-visual-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        padding: 8px 10px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+    }
+    .related-text-pills {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+        gap: 8px;
+    }
+    .related-text-pill {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 12px;
+        min-height: 44px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        text-decoration: none;
+        background: #f8fafc;
+        color: var(--text-main);
+        font-size: 0.88rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+    }
+    .related-text-pill:hover {
+        border-color: var(--primary);
+        color: var(--primary);
     }
     .phone-specs-table-wrap {
         overflow-x: auto;
@@ -552,6 +638,15 @@
                 Actualmente no cuenta con denuncias de fraude ni reportes de spam telefónico registrados en nuestra base comunitaria en Chile.
             @endif
         </p>
+
+        <figure class="phone-visual-card-fig">
+            <img src="{{ route('phone.image', $phone->number) }}"
+                 alt="¿Quién me llama del {{ $phone->number }} ({{ $formatted }})? Nivel de riesgo y denuncias en Chile"
+                 width="1200" height="630" loading="eager" decoding="async">
+            <figcaption>
+                Ficha gráfica de identificación y riesgo comunitario para <strong>{{ $formatted }}</strong> ({{ $dialing['international'] }}) · {{ $phone->location ?: 'Chile' }}.
+            </figcaption>
+        </figure>
 
         <div class="phone-specs-table-wrap">
             <table class="phone-specs-table">
@@ -797,6 +892,43 @@
         </table>
     </div>
 
+    @if(isset($relatedPhones) && $relatedPhones->count() > 0)
+    <div class="card">
+        <h2 class="card-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5L14 12.5l4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+            Otros números sospechosos {{ $relatedPhones->contains('is_same_series', true) ? 'de la misma serie (' . substr($phone->number, 0, 6) . 'XXX)' : 'con prefijo ' . $phone->area_code . ' (' . ($phone->location ?: 'Chile') . ')' }}
+        </h2>
+        <div class="related-visual-grid">
+            @foreach($relatedPhones->take(4) as $rp)
+                <a href="{{ route('phone.show', $rp->number) }}" class="related-visual-item" title="¿Quién me llama del {{ $rp->number }}? Denuncias y spam en Chile">
+                    <img src="{{ route('phone.image', $rp->number) }}"
+                         alt="¿Quién me llama del {{ $rp->number }}? Reportes y riesgo en Chile"
+                         width="600" height="315" loading="lazy" decoding="async">
+                    <div class="related-visual-meta">
+                        <span>{{ $rp->formatted() }}</span>
+                        @if(!empty($rp->is_same_series))
+                            <span style="font-size:0.65rem; background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:6px; font-weight:800;">Misma serie</span>
+                        @endif
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        @if($relatedPhones->count() > 4)
+        <div class="related-text-pills">
+            @foreach($relatedPhones->slice(4) as $rp)
+                <a href="{{ route('phone.show', $rp->number) }}" class="related-text-pill" title="Consultar número {{ $rp->number }} en Chile">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5L14 12.5l4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+                    <span>{{ $rp->formatted() }}</span>
+                    @if(!empty($rp->is_same_series))
+                        <span style="font-size:0.65rem; background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:6px; font-weight:800; margin-left:auto;">Serie</span>
+                    @endif
+                </a>
+            @endforeach
+        </div>
+        @endif
+    </div>
+    @endif
+
     <!-- FAQs Schema.org FAQPage -->
     <div class="card">
         <h3 class="card-title">❓ Preguntas Frecuentes</h3>
@@ -890,10 +1022,21 @@ function shareAlertNative(phone, formatted, url, fullText) {
     {
       "@type": "WebPage",
       "@id": "{{ url()->current() }}#webpage",
-      "name": "¿De quién es el teléfono {{ $formatted }}?",
+      "name": "¿De quién es el teléfono {{ $phone->number }} ({{ $formatted }})?",
+      "alternateName": ["{{ $phone->number }}", "{{ $formatted }}", "{{ $dialing['international'] }}"],
       "url": "{{ url()->current() }}",
-      "description": "<?= addslashes(strip_tags('¿De quién es el teléfono ' . $formatted . ' (' . ($phone->location ?: 'Chile') . ')? Descubre quién te llama, si es spam o estafa, opiniones de la comunidad y cómo bloquearlo.')) ?>",
+      "description": "<?= addslashes(strip_tags('¿Quién te llama del ' . $phone->number . ' (' . $formatted . ' · ' . ($phone->location ?: 'Chile') . ')? Descubre si es spam, cobranza o estafa en Chile y cómo bloquearlo.')) ?>",
       "inLanguage": "es-CL",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "@id": "{{ url()->current() }}#primaryimage",
+        "url": "{{ route('phone.image', $phone->number) }}",
+        "contentUrl": "{{ route('phone.image', $phone->number) }}",
+        "width": 1200,
+        "height": 630,
+        "caption": "¿Quién me llama del {{ $phone->number }} ({{ $formatted }})? Nivel de riesgo y denuncias en Chile"
+      },
+      "image": "{{ route('phone.image', $phone->number) }}",
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": [".direct-answer-summary", "h1"]

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Quién Llama Chile - ¿De quién es este número? Identificador Gratis')</title>
     <meta name="description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam, estafas telefónicas y telemarketing.')">
+    <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
     <meta name="theme-color" content="#0033a0">
     <meta name="apple-mobile-web-app-title" content="QuiénLlama Chile">
     <link rel="canonical" href="{{ url()->current() }}">
@@ -32,12 +33,12 @@
     <meta property="og:title" content="@yield('title', 'Quién Llama Chile - ¿De quién es este número?')">
     <meta property="og:description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam y estafas.')">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ asset('images/og-image.png') }}">
-    <meta property="og:image:secure_url" content="{{ asset('images/og-image.png') }}">
+    <meta property="og:image" content="@yield('og_image', asset('images/og-image.png'))">
+    <meta property="og:image:secure_url" content="@yield('og_image', asset('images/og-image.png'))">
     <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1024">
-    <meta property="og:image:height" content="535">
-    <meta property="og:image:alt" content="QuiénLlama Chile - ¡Acaba con el SPAM!">
+    <meta property="og:image:width" content="@yield('og_image_width', '1200')">
+    <meta property="og:image:height" content="@yield('og_image_height', '630')">
+    <meta property="og:image:alt" content="@yield('og_image_alt', 'QuiénLlama Chile - Identificador de llamadas y spam')">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -45,8 +46,8 @@
     <meta name="twitter:creator" content="@vicksWalkiria">
     <meta name="twitter:title" content="@yield('title', 'Quién Llama Chile - ¿De quién es este número?')">
     <meta name="twitter:description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam y estafas.')">
-    <meta name="twitter:image" content="{{ asset('images/og-image.png') }}">
-    <meta name="twitter:image:alt" content="QuiénLlama Chile - ¡Acaba con el SPAM!">
+    <meta name="twitter:image" content="@yield('og_image', asset('images/og-image.png'))">
+    <meta name="twitter:image:alt" content="@yield('og_image_alt', 'QuiénLlama Chile - Identificador de llamadas y spam')">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">

@@ -11,8 +11,11 @@ class SitemapController extends Controller
 {
     public function index(): Response
     {
-        $xml = Cache::remember('sitemap_xml', 3600, function () {
-            $phones = Phone::select('number', 'updated_at')->orderByDesc('updated_at')->get();
+        $xml = Cache::remember('sitemap_xml_v2', 3600, function () {
+            $phones = Phone::select('number', 'spam_score', 'updated_at')
+                ->orderByDesc('spam_score')
+                ->orderByDesc('updated_at')
+                ->get();
             $areaCodes = array_keys(AreaCodeService::getAll());
 
             $staticRoutes = [
@@ -26,7 +29,7 @@ class SitemapController extends Controller
             ];
 
             $out = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-            $out .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+            $out .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
             // Static Pages
             foreach ($staticRoutes as $page) {
@@ -51,6 +54,7 @@ class SitemapController extends Controller
             }
 
             // Phones
+            $imgCounter = 0;
             foreach ($phones as $phone) {
                 $loc = route('phone.show', $phone->number);
                 $mod = $phone->updated_at ? $phone->updated_at->toAtomString() : now()->toAtomString();
@@ -59,6 +63,15 @@ class SitemapController extends Controller
                 $out .= "    <lastmod>{$mod}</lastmod>\n";
                 $out .= "    <changefreq>weekly</changefreq>\n";
                 $out .= "    <priority>0.7</priority>\n";
+                if ($imgCounter < 8000) {
+                    $imgUrl = route('phone.image', $phone->number);
+                    $imgTitle = htmlspecialchars("¿Quién me llama del {$phone->number}? Denuncias y spam en Chile", ENT_XML1 | ENT_QUOTES, 'UTF-8');
+                    $out .= "    <image:image>\n";
+                    $out .= "      <image:loc>{$imgUrl}</image:loc>\n";
+                    $out .= "      <image:title>{$imgTitle}</image:title>\n";
+                    $out .= "    </image:image>\n";
+                    $imgCounter++;
+                }
                 $out .= "  </url>\n";
             }
 

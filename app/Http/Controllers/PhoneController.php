@@ -62,12 +62,27 @@ class PhoneController extends Controller
             ->pluck('total', 'reason')
             ->toArray();
 
-        // Números relacionados de la misma área
-        $relatedPhones = Phone::where('area_code', $phone->area_code)
+        // Números relacionados: priorizar misma serie de centralita (6 dígitos en Chile, ej: 600XXX / 229XXX) y completar con misma área
+        $seriesPrefix = substr($clean, 0, 6);
+        $sameSeries = Phone::where('number', 'like', $seriesPrefix . '%')
             ->where('id', '!=', $phone->id)
+            ->orderByDesc('spam_score')
             ->orderByDesc('views')
             ->limit(6)
+            ->get()
+            ->each(function ($p) {
+                $p->is_same_series = true;
+            });
+
+        $excludeIds = $sameSeries->pluck('id')->push($phone->id)->all();
+        $sameArea = Phone::where('area_code', $phone->area_code)
+            ->whereNotIn('id', $excludeIds)
+            ->orderByDesc('spam_score')
+            ->orderByDesc('views')
+            ->limit(max(0, 10 - $sameSeries->count()))
             ->get();
+
+        $relatedPhones = $sameSeries->concat($sameArea);
 
         return view('phone.show', compact(
             'phone',
@@ -196,5 +211,29 @@ class PhoneController extends Controller
             'Content-Type' => 'text/vcard; charset=utf-8',
             'Content-Disposition' => "attachment; filename=\"bloquear_{$clean}.vcf\"",
         ]);
+    }
+
+    public function image(string $number): Response
+    {
+        $clean = ChilePhoneHelper::normalize($number);
+        if (!$clean) {
+            abort(404);
+        }
+
+        $phone = Phone::where('number', $clean)->first();
+        $areaInfo = $phone ? ['code' => $phone->area_code, 'location' => $phone->location ?: 'Chile'] : ChilePhoneHelper::getAreaInfo($clean);
+        $formatted = ChilePhoneHelper::format($clean);
+
+        return \App\Services\PhoneImageService::render(
+            $clean,
+            $formatted,
+            '+56 ' . $formatted,
+            $areaInfo['location'] ?: 'Chile',
+            'Prefijo ' . ($areaInfo['code'] ?: substr($clean, 0, 2)),
+            $phone,
+            'cl.quienllama.com.es',
+            'Chile',
+            'Identificador Comunitario de Llamadas, Cobranza, Estafas y Spam en Chile'
+        );
     }
 }

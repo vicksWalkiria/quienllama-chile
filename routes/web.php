@@ -80,6 +80,7 @@ Route::post('/numero/{number}/votar', [PhoneController::class, 'voteReason'])->m
 Route::get('/numero/{number}/vcf', [PhoneController::class, 'downloadVcf'])->name('phone.vcf');
 Route::get('/vcf/{number}.vcf', [PhoneController::class, 'downloadVcf']);
 Route::get('/{number}.vcf', [PhoneController::class, 'downloadVcf']);
+Route::get('/img/telefono-{number}.png', [PhoneController::class, 'image'])->where('number', '[0-9]+')->name('phone.image');
 
 // ============================================================
 // API v1 para la App Android Oficial (Multi-país)
