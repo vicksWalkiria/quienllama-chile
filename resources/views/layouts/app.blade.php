@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Quién Llama Chile - ¿De quién es este número? Identificador Gratis')</title>
-    <meta name="description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y números fijos, denuncias de spam, estafas telefónicas y telemarketing.')">
+    <title>@yield('title', 'Quién Llama Chile: Saber a quién pertenece un teléfono')</title>
+    <meta name="description" content="@yield('meta_description', 'Descubre gratis quién te llama en Chile. Identificador comunitario de celulares y fijos, denuncias de spam, estafas y telemarketing.')">
     <meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')">
     <meta name="theme-color" content="#0033a0">
     <meta name="apple-mobile-web-app-title" content="QuiénLlama Chile">
@@ -132,9 +132,13 @@
     </script>
 
     <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-8445861106914741">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8445861106914741" crossorigin="anonymous"></script>
 
     <style>
+        ::selection { background: rgba(0, 51, 160, 0.16); color: #0f172a; }
+        :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+        .pill-number, .phone-header h1 span, .code-digit-badge, .sub-code-digit { font-variant-numeric: tabular-nums; }
         :root {
             --primary: #0033a0; /* Azul Bandera Chilena */
             --primary-hover: #002266; /* Azul profundo */

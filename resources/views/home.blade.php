@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Quién Llama - Saber a quién pertenece un número de teléfono en Chile gratis')
-@section('meta_description', 'Introduce un número de teléfono o celular y descubre gratis a quién pertenece en Chile. Identifica llamadas de spam, telemarketing, estafas y lee denuncias de la comunidad.')
+@section('title', 'Quién Llama Chile: Saber a quién pertenece un teléfono')
+@section('meta_description', 'Ingresa un celular o fijo y descubre gratis quién te llama en Chile. Denuncias de spam, cobranza, estafas y telemarketing en directo.')
 
 @section('styles')
 <style>
@@ -538,20 +538,8 @@
             </a>
         </div>
 
-        <!-- Anuncio AdSense Chile - Portada -->
-        <div class="ad-slot-container" style="margin: 2rem auto 1.5rem; text-align: center; max-width: 100%; overflow: hidden;">
-            <span style="display: block; font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Publicidad</span>
-            <!-- QuienLlamaCL -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-8445861106914741"
-                 data-ad-slot="6153098851"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+        <!-- Anuncio AdSense Chile - Portada Superior -->
+        @include('partials.ad_slot', ['margin' => '2rem auto 1.5rem'])
     </section>
 
     <!-- Últimas opiniones y denuncias de la comunidad (12 comentarios) -->
@@ -659,8 +647,11 @@
         </div>
     </section>
 
+    <!-- Anuncio AdSense Chile - Portada Inferior -->
+    @include('partials.ad_slot', ['margin' => '2rem auto'])
+
     <!-- Directorio de Enlaces: Últimos números investigados y aleatorios (SEO & Crawl) -->
-    <section class="recent-searches" style="margin-top: 3rem; margin-bottom: 2.5rem;">
+    <section class="recent-searches" style="margin-top: 2rem; margin-bottom: 2.5rem;">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
             <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin: 0; display: flex; align-items: center; gap: 0.5rem;">
                 <span>📞</span> Últimas búsquedas y reportes en Chile

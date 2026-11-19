@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Directorio de Códigos de Área y Prefijos Telefónicos de Chile (SUBTEL)')
-@section('meta_description', 'Guía oficial y completa de prefijos telefónicos y códigos de área de Chile según SUBTEL. Consulta de qué ciudad o región te llaman y cómo marcar.')
+@section('title', 'Códigos de Área y Prefijos Telefónicos de Chile (SUBTEL)')
+@section('meta_description', 'Guía oficial SUBTEL de prefijos telefónicos y códigos de área de Chile. Consulta de qué ciudad o región te llaman y cómo marcar a 9 dígitos.')
 
 @section('styles')
 <style>
@@ -198,6 +198,9 @@
         </div>
     </div>
 
+    <!-- Anuncio AdSense Chile - Prefijos Superior -->
+    @include('partials.ad_slot', ['margin' => '1.5rem auto 2rem'])
+
     <!-- Principales Códigos de Área -->
     <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem">
         <span>⭐</span> Principales Prefijos de Chile por Volumen
@@ -214,6 +217,9 @@
             </a>
         @endforeach
     </div>
+
+    <!-- Anuncio AdSense Chile - Prefijos Intermedio -->
+    @include('partials.ad_slot', ['margin' => '1.5rem auto 2rem'])
 
     <!-- Directorio Completo por Región -->
     <h2 style="font-size:1.35rem; font-weight:800; color:var(--text-main); margin-bottom:1.25rem; display:flex; align-items:center; gap:0.5rem">

@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
-@section('title', $phone->number . ' (' . $formatted . '): ¿Quién me llama? Denuncias Spam | QuiénLlama Chile')
-@section('meta_description', '¿Quién te llama del ' . $phone->number . ' (' . $formatted . ' · ' . ($phone->location ?: 'Chile') . ')? ' . ($comments->total() > 0 ? $comments->total() . ($comments->total() === 1 ? ' denuncia registrada' : ' denuncias registradas') . ' (riesgo ' . $risk['level'] . '). ' : '') . 'Descubre si es spam, cobranza o estafa en Chile y cómo bloquearlo.')
+@php
+    $repTotal = $comments->total();
+    $seoTitle = $repTotal > 0
+        ? "{$phone->number} ({$formatted}): ¿Quién me llama? ({$repTotal} rep.)"
+        : "¿Quién me llama del {$phone->number} ({$formatted})? Spam CL";
+    $seoLoc = trim(preg_replace('/\s*\(.*$/', '', $phone->location ?: 'Chile'));
+    $seoLoc = \Illuminate\Support\Str::words($seoLoc, 5, '');
+    $seoDesc = "¿Quién llama del {$phone->number} ({$formatted} · {$seoLoc})? "
+        . ($repTotal > 0 ? "{$repTotal} " . ($repTotal === 1 ? 'denuncia' : 'denuncias') . " (riesgo {$risk['level']}). " : '')
+        . "Descubre si es spam, cobranza o estafa.";
+@endphp
+@section('title', $seoTitle)
+@section('meta_description', $seoDesc)
 @section('og_image', route('phone.image', $phone->number))
 @section('og_image_alt', '¿Quién me llama del ' . $phone->number . ' (' . $formatted . ')? Nivel de riesgo y denuncias en Chile')
 
@@ -624,6 +635,40 @@
         </div>
     </div>
 
+    <!-- Anuncio AdSense Chile - Superior Ficha -->
+    @include('partials.ad_slot', ['margin' => '1.5rem auto'])
+
+    @if($comments->total() > 0)
+    <!-- Testimonios reales arriba para retención inmediata -->
+    <div class="card" id="comentarios-usuarios">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem">
+            <h2 class="card-title" style="margin:0">💬 Denuncias y Comentarios de Usuarios ({{ $comments->total() }})</h2>
+            <a href="#formulario-reporte" style="font-size:0.85rem; font-weight:700; color:var(--primary); text-decoration:none;">+ Dejar mi reporte ↓</a>
+        </div>
+
+        @foreach($comments as $comment)
+            <div style="border-bottom:1px solid var(--border); padding:1rem 0">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem">
+                    <strong style="color:var(--text-main); font-size:0.95rem">👤 {{ $comment->author_name }}</strong>
+                    <span style="background:#fee2e2; color:#991b1b; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:6px">
+                        {{ $comment->reason }}
+                    </span>
+                </div>
+                <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin-bottom:0.4rem">
+                    {{ $comment->content }}
+                </p>
+                <span style="font-size:0.78rem; color:var(--text-muted)">
+                    📅 {{ $comment->created_at->translatedFormat('d \d\e F \d\e Y, H:i') }}
+                </span>
+            </div>
+        @endforeach
+
+        <div style="margin-top:1.25rem">
+            {{ $comments->links() }}
+        </div>
+    </div>
+    @endif
+
     <!-- Ficha Técnica y Resumen Directo (Optimizado para GEO / AEO / LLMs y Usuarios) -->
     <section class="card phone-direct-answer-card" id="fichaTecnica">
         <h2 class="card-title" style="margin-bottom: 0.85rem;">📋 Ficha Técnica y Resumen del {{ $formatted }}</h2>
@@ -689,19 +734,7 @@
     </section>
 
     <!-- Anuncio AdSense Chile - Ficha de Teléfono -->
-    <div class="ad-slot-container" style="margin: 1.75rem auto; text-align: center; max-width: 100%; overflow: hidden;">
-        <span style="display: block; font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">Publicidad</span>
-        <!-- QuienLlamaCL -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-8445861106914741"
-             data-ad-slot="6153098851"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    @include('partials.ad_slot', ['margin' => '1.75rem auto'])
 
     <!-- Quick Poll Voting Card -->
     <div class="card" style="border: 2px solid var(--primary); background:#ffffff;">
@@ -800,35 +833,15 @@
         </a>
     </div>
 
-    <!-- Comments / Reports Section -->
+    @if($comments->total() === 0)
+    <!-- Comments / Reports Section (Empty state) -->
     <div class="card">
-        <h2 class="card-title">💬 Denuncias y Comentarios de Usuarios ({{ $comments->total() }})</h2>
-
-        @forelse($comments as $comment)
-            <div style="border-bottom:1px solid var(--border); padding:1rem 0">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem">
-                    <strong style="color:var(--text-main); font-size:0.95rem">👤 {{ $comment->author_name }}</strong>
-                    <span style="background:#fee2e2; color:var(--primary); font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:6px">
-                        {{ $comment->reason }}
-                    </span>
-                </div>
-                <p style="font-size:0.92rem; color:#334155; line-height:1.6; margin-bottom:0.4rem">
-                    {{ $comment->content }}
-                </p>
-                <span style="font-size:0.78rem; color:var(--text-muted)">
-                    📅 {{ $comment->created_at->translatedFormat('d \d\e F \d\e Y, H:i') }}
-                </span>
-            </div>
-        @empty
-            <p style="color:var(--text-muted); padding:0.5rem 0">
-                Todavía no hay comentarios para este número. Sé el primero en compartir tu experiencia abajo.
-            </p>
-        @endforelse
-
-        <div style="margin-top:1.25rem">
-            {{ $comments->links() }}
-        </div>
+        <h2 class="card-title">💬 Denuncias y Comentarios de Usuarios (0)</h2>
+        <p style="color:var(--text-muted); padding:0.5rem 0">
+            Todavía no hay comentarios para este número. Sé el primero en compartir tu experiencia abajo.
+        </p>
     </div>
+    @endif
 
     <!-- Formulario de denuncia -->
     <div class="card" id="formulario-reporte">

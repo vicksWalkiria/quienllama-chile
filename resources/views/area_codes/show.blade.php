@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Prefijo ' . $clean . ' Chile: ¿De dónde es el código de área ' . $clean . '?')
-@section('meta_description', '¿De qué ciudad o región es el prefijo ' . $clean . ' en Chile? Conoce la localidad y región correspondiente al código ' . $clean . ' (' . $info['city'] . '), cómo marcar según SUBTEL y números denunciados.')
+@php
+    $shortCity = trim(explode(',', explode(' y ', preg_replace('/\s*\(.*$/', '', $info['city']))[0])[0]);
+    $shortCity = \Illuminate\Support\Str::words($shortCity, 4, '');
+@endphp
+@section('title', "Prefijo {$clean} ({$shortCity}): Código de Área Chile")
+@section('meta_description', "¿De dónde es el prefijo {$clean} en Chile? Corresponde a {$info['city']} ({$info['region']}). Cómo marcar según SUBTEL y números reportados.")
 
 @section('styles')
 <style>
@@ -271,6 +275,9 @@
         </form>
     </div>
 
+    <!-- Anuncio AdSense Chile - Prefijo Detalle Superior -->
+    @include('partials.ad_slot', ['margin' => '1.5rem auto'])
+
     <!-- Teléfonos investigados con este prefijo -->
     @if($phones->isNotEmpty())
         <div class="dialing-card">
@@ -316,6 +323,9 @@
             </div>
         </div>
     @endif
+
+    <!-- Anuncio AdSense Chile - Prefijo Detalle Inferior -->
+    @include('partials.ad_slot', ['margin' => '1.5rem auto'])
 
     <!-- FAQs Schema.org FAQPage -->
     <div class="dialing-card" itemscope itemtype="https://schema.org/FAQPage">
