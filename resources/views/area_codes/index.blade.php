@@ -255,7 +255,7 @@
             📞 ¿Cómo funciona la numeración telefónica en Chile (SUBTEL)?
         </h3>
         <p style="color:#e0f2fe; font-size:0.92rem; line-height:1.6; margin-bottom:1.25rem">
-            En Chile rige el <strong>Plan Nacional de Numeración Unificada de la SUBTEL</strong>, donde todos los números nacionales constan exactamente de <strong>9 dígitos</strong>:
+            En Chile rige el <strong>Plan Nacional de Numeración Unificada de la SUBTEL</strong>, con numeración general de <strong>9 dígitos</strong> (y <strong>10 dígitos</strong> en la serie especial 600):
         </p>
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem">
@@ -268,9 +268,17 @@
                 <span style="color:#bae6fd; font-size:0.85rem">Santiago usa el 2 (2 2XXX XXXX) y las regiones tienen códigos de 2 dígitos (ej: 32 Valparaíso, 41 Concepción).</span>
             </div>
             <div style="background:rgba(255, 255, 255, 0.08); border-radius:10px; padding:1rem">
-                <strong style="color:white; display:block; margin-bottom:0.3rem">🌐 VoIP y Servicios (44 / 809)</strong>
-                <span style="color:#bae6fd; font-size:0.85rem">Prefijo 44 para telefonía IP nacional y 809 para llamadas masivas comerciales reguladas por SUBTEL.</span>
+                <strong style="color:white; display:block; margin-bottom:0.3rem">🌐 VoIP y Masivos (44 / 809 / 600 / 702)</strong>
+                <span style="color:#bae6fd; font-size:0.85rem">Prefijo 44 (VoIP), 809 (telemarketing no solicitado), 600 (10 dígitos, servicios contratados) y 702 (órganos del Estado).</span>
             </div>
+        </div>
+
+        <div style="margin-top:1.25rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.16); display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap;">
+            <span style="color:#e0f2fe; font-size:0.88rem;">Consulta qué empresa concesionaria opera cada bloque numérico oficial en Chile:</span>
+            <a href="{{ route('operators.index') }}" style="display:inline-flex; align-items:center; gap:0.4rem; min-height:44px; padding:0.55rem 1.1rem; border-radius:10px; background:#ffffff; color:#0033a0; font-weight:800; font-size:0.86rem; text-decoration:none;">
+                <span>Directorio de Operadores SUBTEL</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
 

@@ -400,6 +400,135 @@
         line-height: 1.6;
     }
 
+    /* Sección Oficial SUBTEL: Prefijos 809 / 600 / 702 & Operadores */
+    .subtel-home-panel {
+        background: #ffffff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.85rem;
+        margin-bottom: 2.75rem;
+        box-shadow: var(--shadow-sm);
+    }
+    .subtel-home-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.25rem;
+    }
+    .subtel-home-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: #eff6ff;
+        color: var(--primary);
+        border: 1px solid #bfdbfe;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        margin-bottom: 0.5rem;
+    }
+    .subtel-home-top h2 {
+        font-size: 1.38rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin: 0 0 0.3rem 0;
+        line-height: 1.28;
+    }
+    .subtel-home-top p {
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        line-height: 1.55;
+        max-width: 700px;
+        margin: 0;
+    }
+    .subtel-home-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        min-height: 44px;
+        padding: 0.6rem 1.15rem;
+        border-radius: 10px;
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+        transition: background 0.15s, transform 0.15s;
+    }
+    .subtel-home-cta:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+    }
+    .subtel-home-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.85rem;
+    }
+    .subtel-home-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 1.05rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: #f8fafc;
+        text-decoration: none;
+        color: inherit;
+        min-height: 44px;
+        transition: border-color 0.15s, background 0.15s, transform 0.15s;
+    }
+    .subtel-home-card:hover {
+        background: #ffffff;
+        border-color: var(--primary);
+        transform: translateY(-1px);
+    }
+    .subtel-code-pill {
+        display: inline-flex;
+        align-self: flex-start;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.82rem;
+        font-weight: 700;
+        padding: 0.2rem 0.55rem;
+        border-radius: 6px;
+    }
+    .subtel-code-809 { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .subtel-code-600 { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+    .subtel-code-702 { background: #eff6ff; color: #0033a0; border: 1px solid #bfdbfe; }
+    .subtel-code-ops { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .subtel-home-card strong {
+        font-size: 0.94rem;
+        font-weight: 800;
+        color: var(--text-main);
+    }
+    .subtel-home-card span.subtel-desc {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        line-height: 1.48;
+    }
+    @media (max-width: 960px) {
+        .subtel-home-cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 640px) {
+        .subtel-home-panel {
+            padding: 1.35rem 1.1rem;
+        }
+        .subtel-home-cards {
+            grid-template-columns: 1fr;
+        }
+        .subtel-home-cta {
+            width: 100%;
+        }
+    }
+
     @media (max-width: 640px) {
         .search-section {
             padding: 1.5rem 0.5rem 1.25rem;
@@ -540,6 +669,52 @@
 
         <!-- Anuncio AdSense Chile - Portada Superior -->
         @include('partials.ad_slot', ['margin' => '2rem auto 1.5rem'])
+    </section>
+
+    <!-- Guía Oficial SUBTEL: Prefijos 809 / 600 / 702 & Directorio de Operadores -->
+    <section class="subtel-home-panel" aria-label="Normativa SUBTEL sobre prefijos masivos y concesionarias en Chile">
+        <div class="subtel-home-top">
+            <div>
+                <div class="subtel-home-eyebrow">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Normativa Anti-Spam SUBTEL Chile</span>
+                </div>
+                <h2>Identifica Prefijos Masivos (809 · 600 · 702) y Operadores VoIP</h2>
+                <p>
+                    Reconoce de inmediato si una llamada proviene de telemarketing no solicitado, servicios contratados, organismos del Estado o redes mayoristas de Voz sobre IP asignadas por SUBTEL.
+                </p>
+            </div>
+            <a href="{{ route('operators.index') }}" class="subtel-home-cta">
+                <span>Ver {{ number_format($telecomStats['total_operators'] ?? 275, 0, ',', '.') }} Operadores SUBTEL</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <div class="subtel-home-cards">
+            <a href="{{ route('area-codes.show', '809') }}" class="subtel-home-card">
+                <span class="subtel-code-pill subtel-code-809">Prefijo 809</span>
+                <strong>Spam y Ventas No Solicitadas</strong>
+                <span class="subtel-desc">Obligatorio para telemarketing sin contrato previo. Identificable en pantalla y 100% bloqueable.</span>
+            </a>
+
+            <a href="{{ route('area-codes.show', '600') }}" class="subtel-home-card">
+                <span class="subtel-code-pill subtel-code-600">Prefijo 600 (10 dígitos)</span>
+                <strong>Servicios Contratados</strong>
+                <span class="subtel-desc">Exclusivo para bancos, clínicas y empresas con vínculo vigente. Prohibido ofrecer ventas nuevas.</span>
+            </a>
+
+            <a href="{{ route('area-codes.show', '702') }}" class="subtel-home-card">
+                <span class="subtel-code-pill subtel-code-702">Prefijo 702</span>
+                <strong>Órganos del Estado</strong>
+                <span class="subtel-desc">Reservado por SUBTEL para comunicaciones oficiales de ministerios, hospitales públicos y municipios.</span>
+            </a>
+
+            <a href="{{ route('operators.index') }}" class="subtel-home-card">
+                <span class="subtel-code-pill subtel-code-ops">{{ number_format($telecomStats['total_blocks'] ?? 2486, 0, ',', '.') }} Bloques</span>
+                <strong>Padrón de Operadores y VoIP</strong>
+                <span class="subtel-desc">Consulta qué concesionaria móvil, fija o VoIP (prefijo 44) es titular de cada rango numérico en Chile.</span>
+            </a>
+        </div>
     </section>
 
     <!-- Últimas opiniones y denuncias de la comunidad (12 comentarios) -->

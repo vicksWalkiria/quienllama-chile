@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AnalyticsEvent;
 use App\Models\Phone;
 use App\Services\AreaCodeService;
+use App\Services\TelecomBlockService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,13 +17,14 @@ class AreaCodeController extends Controller
         $grouped = AreaCodeService::getGroupedByRegion();
         $topCodes = AreaCodeService::getTopPopular(16);
         $totalCodes = count(AreaCodeService::getAll());
+        $telecomStats = TelecomBlockService::getStats();
 
         AnalyticsEvent::create([
             'event_type' => 'view_area_codes_index',
             'ip_hash' => hash('sha256', $request->ip() . 'salt2026'),
         ]);
 
-        return view('area_codes.index', compact('grouped', 'topCodes', 'totalCodes'));
+        return view('area_codes.index', compact('grouped', 'topCodes', 'totalCodes', 'telecomStats'));
     }
 
     public function show(string $code): View|RedirectResponse
@@ -47,6 +49,10 @@ class AreaCodeController extends Controller
             ->limit(12)
             ->get();
 
+        // Bloques y concesionarias oficiales SUBTEL para este prefijo
+        $prefixBlocks = TelecomBlockService::getBlocksByPrefix($clean, 45);
+        $regulatoryNotice = AreaCodeService::getRegulatoryNotice($clean);
+
         // Códigos hermanos de la misma región
         $regionCodes = AreaCodeService::getGroupedByRegion()[$info['region']] ?? [];
 
@@ -56,6 +62,6 @@ class AreaCodeController extends Controller
             'ip_hash' => hash('sha256', request()->ip() . 'salt2026'),
         ]);
 
-        return view('area_codes.show', compact('info', 'clean', 'phones', 'regionCodes'));
+        return view('area_codes.show', compact('info', 'clean', 'phones', 'regionCodes', 'prefixBlocks', 'regulatoryNotice'));
     }
 }

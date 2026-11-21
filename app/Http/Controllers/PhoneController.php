@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\AnalyticsEvent;
 use App\Models\Comment;
 use App\Models\Phone;
+use App\Services\AreaCodeService;
 use App\Services\ChilePhoneHelper;
+use App\Services\TelecomBlockService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,7 +21,7 @@ class PhoneController extends Controller
         $clean = ChilePhoneHelper::normalize($number);
 
         if (!$clean) {
-            return redirect()->route('home')->with('error', 'El número ingresado no corresponde a un formato válido de teléfono chileno (9 dígitos).');
+            return redirect()->route('home')->with('error', 'El número ingresado no corresponde a un formato válido de teléfono chileno (9 dígitos nacionales o 10 dígitos en líneas 600).');
         }
 
         // Si la URL llamada no coincide exactamente con el formato canónico, redirigir 301
@@ -54,6 +56,11 @@ class PhoneController extends Controller
         $risk = $phone->getRiskLevel();
         $dialing = array_merge($phone->details(), $phone->dialingInfo());
         $formatted = $phone->formatted();
+        $telecomBlock = TelecomBlockService::lookupPhone($phone->number);
+        $regulatoryNotice = AreaCodeService::getRegulatoryNotice(
+            $phone->area_code,
+            (bool) ($telecomBlock['is_voip_or_masivo'] ?? false)
+        );
 
         // Estadísticas de motivos de llamada
         $reasonCounts = Comment::where('phone_id', $phone->id)
@@ -62,8 +69,8 @@ class PhoneController extends Controller
             ->pluck('total', 'reason')
             ->toArray();
 
-        // Números relacionados: priorizar misma serie de centralita (6 dígitos en Chile, ej: 600XXX / 229XXX) y completar con misma área
-        $seriesPrefix = substr($clean, 0, 6);
+        // Números relacionados: priorizar misma serie de centralita (6 dígitos en 9 nac., 7 en serie 600) y completar con misma área
+        $seriesPrefix = strlen($clean) === 10 ? substr($clean, 0, 7) : substr($clean, 0, 6);
         $sameSeries = Phone::where('number', 'like', $seriesPrefix . '%')
             ->where('id', '!=', $phone->id)
             ->orderByDesc('spam_score')
@@ -90,6 +97,8 @@ class PhoneController extends Controller
             'risk',
             'dialing',
             'formatted',
+            'telecomBlock',
+            'regulatoryNotice',
             'reasonCounts',
             'relatedPhones'
         ));
@@ -190,8 +199,8 @@ class PhoneController extends Controller
 
     public function downloadVcf(string $number): Response
     {
-        $clean = ChilePhoneHelper::normalize($number);
-        $formatted = ChilePhoneHelper::format($clean ?? $number);
+        $clean = ChilePhoneHelper::normalize($number) ?? preg_replace('/[^0-9]/', '', $number);
+        $formatted = ChilePhoneHelper::format($clean ?: $number);
 
         $vcard = "BEGIN:VCARD\r\n";
         $vcard .= "VERSION:3.0\r\n";
@@ -223,13 +232,15 @@ class PhoneController extends Controller
         $phone = Phone::where('number', $clean)->first();
         $areaInfo = $phone ? ['code' => $phone->area_code, 'location' => $phone->location ?: 'Chile'] : ChilePhoneHelper::getAreaInfo($clean);
         $formatted = ChilePhoneHelper::format($clean);
+        $tb = TelecomBlockService::lookupPhone($clean);
+        $areaLabel = 'Prefijo ' . ($areaInfo['code'] ?: substr($clean, 0, 2)) . ($tb ? ' · ' . $tb['operator_name'] : '');
 
         return \App\Services\PhoneImageService::render(
             $clean,
             $formatted,
             '+56 ' . $formatted,
             $areaInfo['location'] ?: 'Chile',
-            'Prefijo ' . ($areaInfo['code'] ?: substr($clean, 0, 2)),
+            $areaLabel,
             $phone,
             'cl.quienllama.com.es',
             'Chile',

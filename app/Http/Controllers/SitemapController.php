@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Phone;
 use App\Services\AreaCodeService;
+use App\Services\TelecomBlockService;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
@@ -11,21 +12,24 @@ class SitemapController extends Controller
 {
     public function index(): Response
     {
-        $xml = Cache::remember('sitemap_xml_v2', 3600, function () {
+        $xml = Cache::remember('sitemap_xml_v3', 3600, function () {
             $phones = Phone::select('number', 'spam_score', 'updated_at')
                 ->orderByDesc('spam_score')
                 ->orderByDesc('updated_at')
                 ->get();
             $areaCodes = array_keys(AreaCodeService::getAll());
+            $topOperators = array_slice(TelecomBlockService::getOperators(false), 0, 80);
 
+            $now = now()->toAtomString();
             $staticRoutes = [
-                ['url' => route('home'), 'priority' => '1.0', 'changefreq' => 'daily', 'lastmod' => now()->toAtomString()],
-                ['url' => route('area-codes.index'), 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => now()->toAtomString()],
-                ['url' => route('vcf.index'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => now()->toAtomString()],
-                ['url' => route('legal.no-molestar'), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => now()->toAtomString()],
-                ['url' => route('legal.borrar-datos'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => now()->toAtomString()],
-                ['url' => route('legal.about'), 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => now()->toAtomString()],
-                ['url' => route('contact.index'), 'priority' => '0.5', 'changefreq' => 'monthly', 'lastmod' => now()->toAtomString()],
+                ['url' => route('home'), 'priority' => '1.0', 'changefreq' => 'daily', 'lastmod' => $now],
+                ['url' => route('area-codes.index'), 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $now],
+                ['url' => route('operators.index'), 'priority' => '0.9', 'changefreq' => 'weekly', 'lastmod' => $now],
+                ['url' => route('vcf.index'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => $now],
+                ['url' => route('legal.no-molestar'), 'priority' => '0.8', 'changefreq' => 'monthly', 'lastmod' => $now],
+                ['url' => route('legal.borrar-datos'), 'priority' => '0.8', 'changefreq' => 'weekly', 'lastmod' => $now],
+                ['url' => route('legal.about'), 'priority' => '0.7', 'changefreq' => 'monthly', 'lastmod' => $now],
+                ['url' => route('contact.index'), 'priority' => '0.5', 'changefreq' => 'monthly', 'lastmod' => $now],
             ];
 
             $out = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -41,10 +45,9 @@ class SitemapController extends Controller
                 $out .= "  </url>\n";
             }
 
-            // Area Codes
+            // Area Codes (incluye /prefijo/702, /prefijo/809, /prefijo/600, etc.)
             foreach ($areaCodes as $code) {
                 $loc = route('area-codes.show', $code);
-                $now = now()->toAtomString();
                 $out .= "  <url>\n";
                 $out .= "    <loc>{$loc}</loc>\n";
                 $out .= "    <lastmod>{$now}</lastmod>\n";
@@ -53,11 +56,22 @@ class SitemapController extends Controller
                 $out .= "  </url>\n";
             }
 
+            // Top 80 SUBTEL Operators
+            foreach ($topOperators as $op) {
+                $loc = route('operators.show', $op['slug']);
+                $out .= "  <url>\n";
+                $out .= "    <loc>{$loc}</loc>\n";
+                $out .= "    <lastmod>{$now}</lastmod>\n";
+                $out .= "    <changefreq>monthly</changefreq>\n";
+                $out .= "    <priority>0.8</priority>\n";
+                $out .= "  </url>\n";
+            }
+
             // Phones
             $imgCounter = 0;
             foreach ($phones as $phone) {
                 $loc = route('phone.show', $phone->number);
-                $mod = $phone->updated_at ? $phone->updated_at->toAtomString() : now()->toAtomString();
+                $mod = $phone->updated_at ? $phone->updated_at->toAtomString() : $now;
                 $out .= "  <url>\n";
                 $out .= "    <loc>{$loc}</loc>\n";
                 $out .= "    <lastmod>{$mod}</lastmod>\n";

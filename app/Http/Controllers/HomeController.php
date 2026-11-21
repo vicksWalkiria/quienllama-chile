@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Phone;
 use App\Models\Search;
+use App\Services\TelecomBlockService;
 use Illuminate\View\View;
 
 class HomeController extends Controller
@@ -44,6 +45,8 @@ class HomeController extends Controller
             ->limit(16)
             ->get();
 
+        $telecomStats = TelecomBlockService::getStats();
+
         return view('home', compact(
             'totalPhones',
             'totalComments',
@@ -52,7 +55,8 @@ class HomeController extends Controller
             'recentPhones',
             'recentComments',
             'pillsPhones',
-            'randomPhones'
+            'randomPhones',
+            'telecomStats'
         ));
     }
 }

@@ -50,6 +50,11 @@ Route::get('/caracteristicas', function () { return redirect()->route('area-code
 Route::get('/codigo-de-area/{code}', function ($code) { return redirect()->route('area-codes.show', ['code' => $code], 301); });
 Route::get('/caracteristica/{code}', function ($code) { return redirect()->route('area-codes.show', ['code' => $code], 301); });
 
+// Directorio de Operadores y Concesionarias SUBTEL (VoIP, 809, 600, Móvil y Fija)
+Route::get('/operadores', [\App\Http\Controllers\OperatorController::class, 'index'])->name('operators.index');
+Route::get('/operador/{slug}', [\App\Http\Controllers\OperatorController::class, 'show'])->where('slug', '[a-zA-Z0-9\-]+')->name('operators.show');
+Route::get('/operadores/{slug}', function ($slug) { return redirect()->route('operators.show', ['slug' => $slug], 301); });
+
 // Sitemap XML para Google
 Route::get('/sitemap.xml', [\App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 

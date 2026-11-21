@@ -193,6 +193,123 @@
         font-size: 0.8rem;
         color: var(--text-muted);
     }
+
+    /* Normativa SUBTEL & Bloques Oficiales */
+    .area-reg-box {
+        border-radius: var(--radius-lg);
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 2rem;
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .area-reg-box.tone-danger {
+        background: #fef2f2;
+        border-color: #fecaca;
+    }
+    .area-reg-box.tone-warning {
+        background: #fffbeb;
+        border-color: #fde68a;
+    }
+    .area-reg-box.tone-info {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+    .area-reg-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #ffffff;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: var(--primary);
+    }
+    .area-reg-box.tone-danger .area-reg-icon { color: #991b1b; }
+    .area-reg-box.tone-warning .area-reg-icon { color: #92400e; }
+    .area-reg-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.18rem 0.6rem;
+        border-radius: 9999px;
+        background: #ffffff;
+        color: #1e293b;
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        margin-bottom: 0.4rem;
+    }
+    .area-reg-box h2 {
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin: 0 0 0.4rem 0;
+    }
+    .area-reg-box p {
+        font-size: 0.92rem;
+        color: #334155;
+        line-height: 1.62;
+        margin: 0;
+    }
+    .subtel-blocks-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin-top: 1rem;
+    }
+    .subtel-blocks-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        text-align: left;
+    }
+    .subtel-blocks-table th {
+        background: #f8fafc;
+        color: #475569;
+        font-size: 0.76rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--border);
+    }
+    .subtel-blocks-table td {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+        color: var(--text-main);
+    }
+    .subtel-blocks-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+    .subtel-blocks-table tbody tr:hover {
+        background: #f8fafc;
+    }
+    .subtel-num-mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-variant-numeric: tabular-nums;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    .subtel-op-link {
+        color: var(--primary);
+        font-weight: 800;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .subtel-op-link:hover {
+        text-decoration: underline;
+    }
+    @media (max-width: 640px) {
+        .area-reg-box {
+            flex-direction: column;
+            padding: 1.25rem 1.1rem;
+            gap: 0.75rem;
+        }
+    }
 </style>
 @endsection
 
@@ -229,6 +346,20 @@
         </div>
     </div>
 
+    @if(!empty($regulatoryNotice))
+    <!-- Recuadro Regulatorio SUBTEL (809 / 600 / 702 / 800 / 44) -->
+    <section class="area-reg-box tone-{{ $regulatoryNotice['tone'] ?? 'info' }}" aria-label="Marco normativo SUBTEL del prefijo {{ $clean }}">
+        <div class="area-reg-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+        </div>
+        <div>
+            <span class="area-reg-badge">{{ $regulatoryNotice['badge'] }}</span>
+            <h2>{{ $regulatoryNotice['title'] }}</h2>
+            <p>{{ $regulatoryNotice['text'] }}</p>
+        </div>
+    </section>
+    @endif
+
     <!-- Guía de Marcación -->
     <div class="dialing-card">
         <h2 style="font-size:1.3rem; font-weight:800; color:var(--text-main); margin:0">
@@ -238,22 +369,38 @@
             Formas correctas de llamada según el Plan Fundamental de Numeración Nacional de la SUBTEL:
         </p>
 
+        @php
+            $expectedDigits = $info['digits'] ?? 9;
+            $sampleQuery = match($clean) {
+                '600' => '6000060123',
+                '606' => '6060016500',
+                '609' => '6090016500',
+                '809' => '809000015',
+                '702' => '702100100',
+                '800' => '800000100',
+                '44'  => '442000100',
+                '9'   => '987654321',
+                '2'   => '222345678',
+                default => $clean . str_repeat('2', max(1, 9 - strlen($clean))),
+            };
+        @endphp
+
         <table class="dialing-table">
             <tr>
-                <td>Marcación Nacional Fija Directa</td>
-                <td>{{ $clean }} + N° Local (Total 9 dígitos)</td>
+                <td>Marcación Nacional Directa</td>
+                <td>{{ $clean }} + N° de Serie (Total {{ $expectedDigits }} dígitos)</td>
             </tr>
             <tr>
-                <td>Llamar a un celular de esta zona desde Chile</td>
-                <td>9 + 8 dígitos del celular</td>
+                <td>Llamar a un celular desde Chile</td>
+                <td>9 + 8 dígitos del celular (Total 9 dígitos)</td>
             </tr>
             <tr>
-                <td>Llamar desde el extranjero a esta zona</td>
-                <td>+56 {{ $clean }} + N° Local</td>
+                <td>Llamar desde el extranjero</td>
+                <td>+56 {{ $clean }} + N° Local / Serie</td>
             </tr>
             <tr>
-                <td>Llamar o agendar en WhatsApp</td>
-                <td>+56 {{ $clean }} (fijo) o +56 9 XXXX XXXX (móvil)</td>
+                <td>Formato completo de ejemplo</td>
+                <td>{{ \App\Services\ChilePhoneHelper::format($sampleQuery) }}</td>
             </tr>
         </table>
     </div>
@@ -264,16 +411,70 @@
             🔎 ¿Recibiste una llamada con el prefijo {{ $clean }}?
         </h3>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem">
-            Ingresa el número completo para consultar si otros usuarios lo denunciaron por telemarketing o estafas en Chile:
+            Ingresa el número completo ({{ $expectedDigits }} dígitos) para consultar su concesionaria SUBTEL y si otros usuarios lo denunciaron en Chile:
         </p>
 
         <form action="{{ route('search') }}" method="GET" style="display:flex; gap:0.5rem; flex-wrap:wrap">
-            <input type="tel" name="q" value="{{ $clean }}" placeholder="Ej: {{ $clean }}22345678" required style="flex:1; padding:0.75rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:1rem; min-width:200px">
-            <button type="submit" class="btn btn-primary" style="padding:0.75rem 1.5rem">
+            <input type="tel" name="q" value="{{ $clean }}" placeholder="Ej: {{ $sampleQuery }}" required style="flex:1; padding:0.75rem 1rem; border:1px solid var(--border); border-radius:8px; font-size:1rem; min-width:200px; min-height:44px">
+            <button type="submit" class="btn btn-primary" style="padding:0.75rem 1.5rem; min-height:44px">
                 Buscar Teléfono
             </button>
         </form>
     </div>
+
+    <!-- Bloques y Concesionarias Asignadas por SUBTEL -->
+    <section class="dialing-card" id="bloques-subtel">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap;">
+            <h2 style="font-size:1.25rem; font-weight:800; color:var(--text-main); margin:0; display:flex; align-items:center; gap:0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                Bloques y Concesionarias Asignadas por SUBTEL (Prefijo {{ $clean }})
+            </h2>
+            <a href="{{ route('operators.index') }}" style="display:inline-flex; align-items:center; gap:0.35rem; min-height:44px; padding:0.4rem 0.85rem; border-radius:8px; border:1px solid #bfdbfe; background:#eff6ff; color:var(--primary); font-size:0.84rem; font-weight:700; text-decoration:none;">
+                <span>Ver las 275 concesionarias</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+        </div>
+
+        @if(!empty($prefixBlocks))
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.4rem; margin-bottom:0;">
+                Principales rangos numéricos adjudicados por la Subsecretaría de Telecomunicaciones para el código <strong>+56 {{ $clean }}</strong> (ordenados por capacidad asignada):
+            </p>
+
+            <div class="subtel-blocks-wrap">
+                <table class="subtel-blocks-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Rango Oficial SUBTEL</th>
+                            <th scope="col">Concesionaria Titular</th>
+                            <th scope="col">Servicio</th>
+                            <th scope="col" style="text-align:right">Números</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($prefixBlocks as $blk)
+                            <tr>
+                                <td class="subtel-num-mono">
+                                    <a href="{{ route('phone.show', $blk['range_start']) }}" style="color:var(--text-main); text-decoration:none;" title="Consultar inicio de bloque {{ $blk['start_formatted'] }}">
+                                        {{ $blk['range_formatted'] }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('operators.show', $blk['operator_slug']) }}" class="subtel-op-link">{{ $blk['operator_name'] }}</a>
+                                    <span style="display:block; font-size:0.76rem; color:var(--text-muted);">{{ \Illuminate\Support\Str::limit($blk['legal_name'], 65) }}</span>
+                                </td>
+                                <td style="font-size:0.84rem; color:#334155;">{{ $blk['service_type'] }}</td>
+                                <td class="subtel-num-mono" style="text-align:right">{{ number_format($blk['capacity'], 0, ',', '.') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <p style="font-size:0.9rem; color:#334155; line-height:1.6; margin-top:0.65rem; margin-bottom:0;">
+                La serie <strong>{{ $clean }}</strong> se encuentra habilitada dentro del marco regulatorio de SUBTEL para <strong>{{ $info['city'] }}</strong>. A medida que las concesionarias activan nuevas subasignaciones técnicas sobre este prefijo, puedes verificar cualquier número de {{ $expectedDigits }} dígitos directamente en el buscador superior o consultar el <a href="{{ route('operators.index') }}" style="color:var(--primary); font-weight:700;">padrón completo de operadores</a>.
+            </p>
+        @endif
+    </section>
 
     <!-- Anuncio AdSense Chile - Prefijo Detalle Superior -->
     @include('partials.ad_slot', ['margin' => '1.5rem auto'])

@@ -1274,6 +1274,7 @@
             <nav class="header-nav" id="header-nav">
                 <a href="{{ route('home') }}">Buscar</a>
                 <a href="{{ route('area-codes.index') }}"><span class="nav-pref-desktop">Prefijos</span><span class="nav-pref-mobile">Prefijos SUBTEL</span></a>
+                <a href="{{ route('operators.index') }}"><span class="nav-pref-desktop">Operadores</span><span class="nav-pref-mobile">Operadores SUBTEL y VoIP</span></a>
                 <a href="{{ route('vcf.index') }}">Bloquear SPAM</a>
                 <a href="{{ url('/app') }}" style="color: #fef08a; font-weight:800; display:inline-flex; align-items:center; gap:4px;" onclick="if(typeof trackGoal==='function'){trackGoal('app_nav_click', {event_label:'header_nav_cl'});}">📲 App Android</a>
                 <a href="https://t.me/+C91vWOozJvI4NzJk" target="_blank" rel="noopener noreferrer" class="nav-telegram-btn" onclick="if(typeof trackGoal==='function'){trackGoal('join_telegram_community', {event_label:'header_nav'});}">
@@ -1395,6 +1396,7 @@
                     <li><a href="{{ url('/app') }}" style="color:var(--primary); font-weight:700" onclick="if(typeof trackGoal==='function'){trackGoal('app_nav_click', {event_label:'footer_cl'});}">📲 App Android (Google Play)</a></li>
                     <li><a href="{{ route('legal.borrar-datos') }}" style="color:var(--primary); font-weight:700">🛡️ ¿Cómo borrar mis datos? (Incogni)</a></li>
                     <li><a href="{{ route('area-codes.index') }}" style="color:var(--primary); font-weight:700">Prefijos y Códigos de Área</a></li>
+                    <li><a href="{{ route('operators.index') }}" style="color:var(--primary); font-weight:700">Operadores SUBTEL y VoIP</a></li>
                     <li><a href="{{ route('vcf.index') }}">Bloqueador SPAM VCF (Top Chile)</a></li>
                     <li><a href="{{ route('legal.no-molestar') }}">Plataforma SERNAC No Molestar</a></li>
                 </ul>
@@ -1411,6 +1413,9 @@
                     <li><a href="{{ route('area-codes.show', '45') }}">Temuco y Araucanía (+56 45)</a></li>
                     <li><a href="{{ route('area-codes.show', '65') }}">Puerto Montt (+56 65)</a></li>
                     <li><a href="{{ route('area-codes.show', '44') }}">Telefonía IP / VoIP (+56 44)</a></li>
+                    <li><a href="{{ route('area-codes.show', '809') }}">Spam Comercial SUBTEL (809)</a></li>
+                    <li><a href="{{ route('area-codes.show', '600') }}">Servicios Contratados (600)</a></li>
+                    <li><a href="{{ route('area-codes.show', '702') }}">Órganos del Estado (702)</a></li>
                 </ul>
             </div>
 

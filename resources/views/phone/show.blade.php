@@ -526,6 +526,75 @@
     .phone-specs-table tr:last-child td {
         border-bottom: none;
     }
+    .subtel-reg-notice {
+        border-radius: var(--radius);
+        padding: 1.1rem 1.25rem;
+        margin-bottom: 1.5rem;
+        border: 1px solid #cbd5e1;
+        background: #f8fafc;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+    .subtel-reg-notice.tone-danger {
+        background: #fef2f2;
+        border-color: #fecaca;
+    }
+    .subtel-reg-notice.tone-warning {
+        background: #fffbeb;
+        border-color: #fde68a;
+    }
+    .subtel-reg-notice.tone-info {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+    }
+    .subtel-reg-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: #ffffff;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        color: var(--primary);
+    }
+    .subtel-reg-notice.tone-danger .subtel-reg-icon { color: #991b1b; }
+    .subtel-reg-notice.tone-warning .subtel-reg-icon { color: #92400e; }
+    .subtel-reg-body strong {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 0.25rem;
+    }
+    .subtel-reg-body p {
+        font-size: 0.88rem;
+        line-height: 1.58;
+        color: #334155;
+        margin: 0;
+    }
+    .operator-pill-link {
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: var(--primary);
+        text-decoration: none;
+        min-height: 38px;
+        transition: background 0.15s, border-color 0.15s;
+    }
+    .operator-pill-link:hover {
+        background: #dbeafe;
+        border-color: var(--primary);
+    }
+    .th-svg-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+    .spec-tabular {
+        font-variant-numeric: tabular-nums;
+    }
     @media (max-width: 640px) {
         .phone-specs-table th {
             width: 44%;
@@ -557,8 +626,15 @@
                 📍 {{ $phone->location ?: 'Chile' }} (Prefijo {{ $phone->area_code }})
             </a>
 
+            @if(!empty($telecomBlock))
+                <a href="{{ route('operators.show', $telecomBlock['operator_slug']) }}" class="meter-pill operator-pill-link" title="Ver bloques oficiales SUBTEL de {{ $telecomBlock['operator_name'] }}">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>SUBTEL: {{ $telecomBlock['operator_name'] }}</span>
+                </a>
+            @endif
+
             <span class="meter-pill">
-                📞 {{ str_starts_with($phone->number, '800') ? 'Línea Gratuita (800)' : ($phone->area_code === '9' ? 'Telefonía Móvil / Celular' : 'Línea de Telecomunicaciones SUBTEL') }}
+                📞 {{ $dialing['type'] ?? 'Línea de Telecomunicaciones SUBTEL' }}
             </span>
 
             <a href="{{ route('legal.borrar-datos') }}" class="meter-pill" style="text-decoration:none; background:#f0fdf4; color:#166534; border: 1px solid #86efac; font-weight:700;" title="Guía: ¿Cómo hacer que borren mis datos personales de las listas de llamadas?">
@@ -673,9 +749,29 @@
     <section class="card phone-direct-answer-card" id="fichaTecnica">
         <h2 class="card-title" style="margin-bottom: 0.85rem;">📋 Ficha Técnica y Resumen del {{ $formatted }}</h2>
 
+        @if(!empty($regulatoryNotice))
+            <div class="subtel-reg-notice tone-{{ $regulatoryNotice['tone'] ?? 'info' }}" role="note" aria-label="Aviso normativo SUBTEL">
+                <div class="subtel-reg-icon" aria-hidden="true">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                </div>
+                <div class="subtel-reg-body">
+                    <strong>{{ $regulatoryNotice['title'] }}</strong>
+                    <p>
+                        {{ $regulatoryNotice['text'] }}
+                        @if(!empty($telecomBlock))
+                            Concesionaria asignataria en SUBTEL: <a href="{{ route('operators.show', $telecomBlock['operator_slug']) }}" style="color:var(--primary); font-weight:700;">{{ $telecomBlock['operator_name'] }}</a>.
+                        @endif
+                    </p>
+                </div>
+            </div>
+        @endif
+
         <p class="direct-answer-summary">
             <strong>¿De quién es el teléfono {{ $formatted }}?</strong> 
-            El número <strong>{{ $formatted }}</strong> (formato internacional {{ $dialing['international'] }}) corresponde a una {{ str_starts_with($phone->number, '800') ? 'línea gratuita (800)' : ($phone->area_code === '9' ? 'línea de telefonía móvil / celular' : 'línea de telecomunicaciones SUBTEL') }} con prefijo <strong>{{ $phone->area_code }}</strong> de <strong>{{ $phone->location ?: 'Chile' }}</strong>. 
+            El número <strong>{{ $formatted }}</strong> (formato internacional {{ $dialing['international'] }}) corresponde a una línea de <strong>{{ mb_strtolower($dialing['type'] ?? 'telecomunicaciones SUBTEL', 'UTF-8') }}</strong> con prefijo <strong>{{ $phone->area_code }}</strong> ({{ $phone->location ?: 'Chile' }}).
+            @if(!empty($telecomBlock))
+                Según el Plan Técnico Fundamental de Numeración de <strong>SUBTEL</strong>, pertenece al bloque oficial <strong>{{ $telecomBlock['range_formatted'] }}</strong> asignado a la concesionaria <a href="{{ route('operators.show', $telecomBlock['operator_slug']) }}" style="color:var(--primary); font-weight:700;">{{ $telecomBlock['operator_name'] }}</a> ({{ $telecomBlock['legal_name'] }}){{ $telecomBlock['is_voip_or_masivo'] ? ', operador con infraestructura VoIP o de tráfico masivo' : ', sujeto a portabilidad numérica (Ley N° 20.471)' }}.
+            @endif
             @if($phone->spam_score > 0 || $comments->total() > 0)
                 Registra <strong>{{ $comments->total() }} {{ $comments->total() === 1 ? 'denuncia comunitaria' : 'denuncias comunitarias' }}</strong> con un nivel de riesgo clasificado como <strong>{{ $risk['level'] }}</strong> ({{ $risk['badge'] }}).
                 {{ $risk['level'] === 'Peligroso' || $risk['level'] === 'Sospechoso' ? 'Se recomienda precaución, no entregar datos personales ni bancarios bajo sospecha de estafa o cobranza abusiva, y bloquear las llamadas de esta numeración.' : 'No se aprecian incidencias graves de fraude o estafas en los reportes.' }}
@@ -689,7 +785,7 @@
                  alt="¿Quién me llama del {{ $phone->number }} ({{ $formatted }})? Nivel de riesgo y denuncias en Chile"
                  width="1200" height="630" loading="eager" decoding="async">
             <figcaption>
-                Ficha gráfica de identificación y riesgo comunitario para <strong>{{ $formatted }}</strong> ({{ $dialing['international'] }}) · {{ $phone->location ?: 'Chile' }}.
+                Ficha gráfica de identificación y riesgo comunitario para <strong>{{ $formatted }}</strong> ({{ $dialing['international'] }}) · {{ $phone->location ?: 'Chile' }}{{ !empty($telecomBlock) ? ' · ' . $telecomBlock['operator_name'] : '' }}.
             </figcaption>
         </figure>
 
@@ -698,20 +794,48 @@
                 <tbody>
                     <tr>
                         <th scope="row">📞 Número de teléfono</th>
-                        <td><strong>{{ $formatted }}</strong> ({{ $phone->number }})</td>
+                        <td class="spec-tabular"><strong>{{ $formatted }}</strong> ({{ $phone->number }} · {{ strlen($phone->number) }} dígitos)</td>
                     </tr>
                     <tr>
                         <th scope="row">🌐 Marcación internacional</th>
-                        <td>{{ $dialing['international'] }}</td>
+                        <td class="spec-tabular">{{ $dialing['international'] }}</td>
                     </tr>
                     <tr>
                         <th scope="row">📍 Región / Prefijo SUBTEL</th>
-                        <td>{{ $phone->location ?: 'Chile' }} (Prefijo {{ $phone->area_code }})</td>
+                        <td><a href="{{ route('area-codes.show', $phone->area_code ?: '2') }}" style="color:var(--primary); font-weight:700; text-decoration:none;">{{ $phone->location ?: 'Chile' }} (Prefijo {{ $phone->area_code }})</a></td>
                     </tr>
                     <tr>
                         <th scope="row">📶 Tipo de línea</th>
-                        <td>{{ str_starts_with($phone->number, '800') ? 'Línea Gratuita (800)' : ($phone->area_code === '9' ? 'Telefonía Móvil / Celular' : 'Telefonía Fija SUBTEL') }}</td>
+                        <td>{{ $telecomBlock['service_type'] ?? ($dialing['type'] ?? 'Telefonía SUBTEL') }}</td>
                     </tr>
+                    @if(!empty($telecomBlock))
+                    <tr>
+                        <th scope="row">
+                            <span class="th-svg-label">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                Operador Concesionario SUBTEL
+                            </span>
+                        </th>
+                        <td>
+                            <a href="{{ route('operators.show', $telecomBlock['operator_slug']) }}" style="color:var(--primary); font-weight:800; text-decoration:none;">{{ $telecomBlock['operator_name'] }}</a>
+                            <span style="display:block; font-size:0.8rem; color:var(--text-muted); margin-top:2px;">
+                                {{ $telecomBlock['legal_name'] }} · {{ $telecomBlock['is_voip_or_masivo'] ? 'Red VoIP / subasignación corporativa o call center' : 'Concesionaria de origen (sujeta a portabilidad numérica Ley 20.471)' }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="th-svg-label">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                                Bloque Oficial SUBTEL
+                            </span>
+                        </th>
+                        <td class="spec-tabular">
+                            <strong>{{ $telecomBlock['range_formatted'] }}</strong>
+                            <span style="font-size:0.8rem; color:var(--text-muted); margin-left:4px;">({{ number_format($telecomBlock['capacity'], 0, ',', '.') }} números{{ $telecomBlock['regulator_meta'] ? ' · ' . $telecomBlock['regulator_meta'] : '' }})</span>
+                        </td>
+                    </tr>
+                    @endif
                     <tr>
                         <th scope="row">🚨 Nivel de riesgo</th>
                         <td>
@@ -888,7 +1012,7 @@
         <table class="dial-table">
             <tr>
                 <td>Marcación Nacional Directa</td>
-                <td>{{ $formatted }} (9 dígitos)</td>
+                <td>{{ $formatted }} ({{ strlen($phone->number) }} dígitos)</td>
             </tr>
             <tr>
                 <td>Desde Celular o Red Móvil</td>
@@ -900,7 +1024,7 @@
             </tr>
             <tr>
                 <td>Tipo de Red / Cobertura</td>
-                <td>{{ $dialing['type'] ?? 'Chile' }}</td>
+                <td>{{ $telecomBlock ? $telecomBlock['operator_name'] . ' · ' . $telecomBlock['service_type'] : ($dialing['type'] ?? 'Chile') }}</td>
             </tr>
         </table>
     </div>
@@ -909,7 +1033,7 @@
     <div class="card">
         <h2 class="card-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5L14 12.5l4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
-            Otros números sospechosos {{ $relatedPhones->contains('is_same_series', true) ? 'de la misma serie (' . substr($phone->number, 0, 6) . 'XXX)' : 'con prefijo ' . $phone->area_code . ' (' . ($phone->location ?: 'Chile') . ')' }}
+            Otros números sospechosos {{ $relatedPhones->contains('is_same_series', true) ? 'de la misma serie (' . (strlen($phone->number) === 10 ? substr($phone->number, 0, 7) : substr($phone->number, 0, 6)) . 'XXX)' : 'con prefijo ' . $phone->area_code . ' (' . ($phone->location ?: 'Chile') . ')' }}
         </h2>
         <div class="related-visual-grid">
             @foreach($relatedPhones->take(4) as $rp)
